@@ -1,0 +1,12 @@
+{
+  "name": "yishuv-site",
+  "private": true,
+  "scripts": {
+    "build": "eleventy",
+    "start": "eleventy --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "3.1.7",
+    "markdown-it": "15.0.2"
+  }
+}

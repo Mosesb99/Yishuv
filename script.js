@@ -1,12 +1,19 @@
 (function () {
   document.getElementById("year").textContent = new Date().getFullYear();
 
+  // Nav: solid background once scrolled past the top
+  var nav = document.getElementById("nav");
+  function onScroll() { nav.classList.toggle("scrolled", window.scrollY > 40); }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
   // Mobile menu
   var toggle = document.querySelector(".nav-toggle");
   var links = document.getElementById("nav-links");
   toggle.addEventListener("click", function () {
     var open = links.classList.toggle("open");
     toggle.setAttribute("aria-expanded", String(open));
+    nav.classList.add("scrolled");
   });
   links.addEventListener("click", function (e) {
     if (e.target.tagName === "A") {
@@ -15,33 +22,35 @@
     }
   });
 
-  // Brochure: require a postal address only when a printed copy is requested
-  var brochure = document.forms.brochure;
-  var postal = brochure.querySelector(".postal");
-  var address = brochure.elements.address;
-  brochure.addEventListener("change", function (e) {
-    if (e.target.name !== "format") return;
-    var needsPost = e.target.value !== "Digital (email)";
-    postal.hidden = !needsPost;
-    address.required = needsPost;
-  });
+  // Garin progress squares (numbers come from the site content)
+  var garin = document.querySelector(".garin");
+  var committed = +garin.dataset.committed;
+  var goal = +garin.dataset.goal;
+  var grid = garin.querySelector(".garin-grid");
+  for (var i = 0; i < goal; i++) {
+    var cell = document.createElement("i");
+    if (i < committed) cell.className = "on";
+    grid.appendChild(cell);
+  }
 
-  var endpoints = window.YISHUV_FORMS || {};
-  var messages = {
-    brochure: "Thank you! Your brochure request is on its way to us — we'll be in touch soon.",
-    join: "Thank you for signing up! Someone from our team will reach out within a week or two."
-  };
-
-  function submit(form, data) {
-    var endpoint = endpoints[form.name];
-    if (endpoint) {
-      return fetch(endpoint, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: data
+  // Scroll reveal
+  var revealEls = document.querySelectorAll(".reveal, .compare");
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+        }
       });
-    }
-    // Netlify Forms: post URL-encoded data to the site root
+    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+    Array.prototype.forEach.call(revealEls, function (el) { io.observe(el); });
+  } else {
+    Array.prototype.forEach.call(revealEls, function (el) { el.classList.add("in"); });
+  }
+
+  // Sign-up form: Netlify Forms (posts URL-encoded data to the site root)
+  function submit(data) {
     return fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -66,28 +75,19 @@
         return;
       }
 
-      var data = new FormData(form);
-      // Combine multi-select checkboxes into a single readable value
-      var interests = data.getAll("interests");
-      if (interests.length) {
-        data.delete("interests");
-        data.append("interests", interests.join(", "));
-      }
-
       button.disabled = true;
       status.textContent = "Sending…";
 
-      submit(form, data)
+      submit(new FormData(form))
         .then(function (res) {
           if (!res.ok) throw new Error(res.status);
           form.reset();
           form.classList.remove("show-errors");
-          if (form === brochure) { postal.hidden = true; address.required = false; }
-          status.textContent = messages[form.name];
+          status.textContent = form.dataset.success;
           status.classList.add("success");
         })
         .catch(function () {
-          status.textContent = "Sorry, something went wrong. Please try again, or email us directly.";
+          status.textContent = form.dataset.error;
           status.classList.add("error");
         })
         .finally(function () {

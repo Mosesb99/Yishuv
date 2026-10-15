@@ -1,0 +1,329 @@
+---
+permalink: /index.html
+---
+{%- set s = site -%}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ s.meta.title }}</title>
+  <meta name="description" content="{{ s.meta.description }}">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">
+        <img src="/assets/favicon.svg" alt="" width="28" height="28">
+        <span>{{ s.meta.brand }}</span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+      <nav id="nav-links" class="nav-links">
+        <a href="#why">{{ s.nav.why }}</a>
+        <a href="#process">{{ s.nav.process }}</a>
+        <a href="#numbers">{{ s.nav.numbers }}</a>
+        <a href="#vision">{{ s.nav.vision }}</a>
+        <a class="btn btn-small" href="#join">{{ s.nav.cta }}</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    {%- set h = s.hero %}
+    <section class="hero" id="top">
+      <div class="hero-bg" style="--img: url('{{ h.image }}')" aria-hidden="true"></div>
+      <div class="container hero-inner">
+        <p class="bsd" lang="he" dir="rtl">בס״ד</p>
+        <p class="hero-pasuk" lang="he" dir="rtl">{{ h.pasuk }}</p>
+        <p class="hero-pasuk-en">{{ h.pasuk_en }} <span>{{ h.pasuk_source }}</span></p>
+
+        <p class="eyebrow light">{{ h.eyebrow }}</p>
+        <h1>{{ h.title }}</h1>
+        <p class="hero-sub">{{ h.subtitle | md | safe }}</p>
+        <div class="hero-cta">
+          <a class="btn btn-gold" href="#join">{{ h.cta_primary }}</a>
+          <a class="btn btn-ghost" href="{{ s.meta.brochure }}" download>{{ h.cta_secondary }}</a>
+        </div>
+        <p class="hero-yi" lang="yi" dir="rtl">{{ h.yiddish }}</p>
+      </div>
+      {%- if h.image_note %}<p class="hero-note">{{ h.image_note }}</p>{% endif %}
+      <div class="hero-strip">
+        <div class="container strip-inner">
+          {%- for item in h.strip %}
+          <div><strong>{{ item.value }}</strong><span>{{ item.label }}</span></div>
+          {%- endfor %}
+          <div><strong>{{ s.join.garin_committed }}</strong><span>{{ h.strip_committed_label }}</span></div>
+        </div>
+      </div>
+    </section>
+
+    {%- set x = s.history %}
+    <section class="section history">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">{{ x.eyebrow }}</p>
+          <h2>{{ x.title }}</h2>
+          <p class="lede">{{ x.lede }}</p>
+        </div>
+        <ol class="timeline">
+          {%- for item in x.items %}
+          <li class="reveal"><span class="year" lang="he">{{ item.year }}</span><p>{{ item.text | md | safe }}</p></li>
+          {%- endfor %}
+        </ol>
+        <p class="kicker reveal">{{ x.kicker }} <em>{{ x.kicker_accent }}</em></p>
+      </div>
+    </section>
+
+    {%- set x = s.today %}
+    <section class="section today">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">{{ x.eyebrow }}</p>
+          <h2>{{ x.title }}</h2>
+        </div>
+        <div class="stats">
+          {%- for stat in x.stats %}
+          <div class="stat {{ 'stat-olive' if loop.index % 2 == 0 else 'stat-dark' }} reveal">
+            <strong>{{ stat.value }}</strong>
+            <p>{{ stat.text | md | safe }}</p>
+          </div>
+          {%- endfor %}
+        </div>
+        <div class="grade reveal">
+          <h3><span class="accent">{{ x.grade_value }}</span> {{ x.grade_title }}</h3>
+          {%- for bar in x.bars %}
+          <div class="bar-row"><span>{{ bar.year }}</span><div class="bar"><i class="b-sec" style="--w:{{ bar.secular }}%">{{ bar.secular }}%</i><i class="b-dati" style="--w:{{ bar.dati }}%">{{ bar.dati }}%</i><i class="b-char" style="--w:{{ bar.chareidi }}%">{{ bar.chareidi }}%</i></div></div>
+          {%- endfor %}
+          <p class="legend"><span class="k b-sec"></span>{{ x.legend_secular }} <span class="k b-dati"></span>{{ x.legend_dati }} <span class="k b-char"></span>{{ x.legend_chareidi }}</p>
+        </div>
+        <p class="kicker reveal">{{ x.kicker }} <em>{{ x.kicker_accent }}</em></p>
+        <p class="sources">{{ x.sources }}</p>
+      </div>
+    </section>
+
+    {%- set x = s.challenges %}
+    <section class="section challenges" id="why">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">{{ x.eyebrow }}</p>
+          <h2>{{ x.title }}</h2>
+          <p class="lede">{{ x.lede }}</p>
+        </div>
+        <div class="answers">
+          {%- for item in x.items %}
+          <article class="answer reveal">
+            <div class="q"><span>{{ loop.index }}</span><h3>{{ item.title }}</h3><p>{{ item.problem | md | safe }}</p></div>
+            <div class="a"><small>{{ x.answer_label }}</small><p>{{ item.answer | md | safe }}</p></div>
+          </article>
+          {%- endfor %}
+        </div>
+      </div>
+    </section>
+
+    {%- set x = s.mission %}
+    <section class="band band-hills" style="--img: url('{{ x.image }}')">
+      <div class="container band-inner reveal">
+        <p class="eyebrow light">{{ x.eyebrow }}</p>
+        <div class="mission">
+          {%- for item in x.items %}
+          <div><span>{{ loop.index }}</span><h3>{{ item.title }}</h3><p>{{ item.text | md | safe }}</p></div>
+          {%- endfor %}
+        </div>
+      </div>
+    </section>
+
+    {%- set x = s.process %}
+    <section class="section process" id="process">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">{{ x.eyebrow }}</p>
+          <h2>{{ x.title }}</h2>
+        </div>
+        {%- for stage in x.stages %}
+        <div class="stage reveal">
+          <div class="stage-mark {{ stage.color }}"><span lang="he">{{ stage.letter }}</span><small>{{ stage.label }}</small></div>
+          <div class="stage-body">
+            <h3>{{ stage.title }}</h3>
+            {%- if stage.lede %}<p class="stage-lede">{{ stage.lede }}</p>{% endif %}
+            {%- if stage.intro %}<p>{{ stage.intro | md | safe }}</p>{% endif %}
+            <div class="{{ 'cards2' if stage.cards.length == 2 else 'cards3' }}">
+              {%- for card in stage.cards %}
+              <div class="card{% if card.style != 'plain' %} card-{{ card.style }}{% endif %}">
+                {%- if card.tag %}<small>{{ card.tag }}</small>{% endif %}
+                {%- if card.title %}<h4>{{ card.title }}</h4>{% endif %}
+                {%- if card.big %}<p class="big">{{ card.big }}</p>{% endif %}
+                <p>{{ card.text | md | safe }}</p>
+              </div>
+              {%- endfor %}
+            </div>
+            {%- if stage.note %}<p class="note">{{ stage.note }}</p>{% endif %}
+          </div>
+        </div>
+        {%- endfor %}
+      </div>
+    </section>
+
+    {%- set x = s.numbers %}
+    <section class="section numbers" id="numbers">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow light">{{ x.eyebrow }}</p>
+          <h2>{{ x.title }}</h2>
+        </div>
+        <div class="adv reveal">
+          {%- for item in x.advantages %}
+          <div><span>{{ loop.index }}</span><h3>{{ item.title }}</h3><p>{{ item.text | md | safe }}</p></div>
+          {%- endfor %}
+        </div>
+
+        <div class="compare reveal">
+          <p class="eyebrow light">{{ x.compare_label }}</p>
+          <div class="cmp-row">
+            <div class="cmp-label"><h4>{{ x.founder_title }}</h4><span>{{ x.founder_sub }}</span></div>
+            <div class="cmp-track"><div class="cmp-bar founder" style="--w:{{ x.founder_bar_percent }}%"></div><strong>{{ x.founder_amount }} <small>{{ x.founder_amount_usd }}</small></strong></div>
+          </div>
+          <div class="cmp-row">
+            <div class="cmp-label"><h4>{{ x.later_title }}</h4><span>{{ x.later_sub }}</span></div>
+            <div class="cmp-track"><div class="cmp-bar later" style="--w:100%"><strong>{{ x.later_amount }}</strong></div></div>
+          </div>
+          <p class="fine">{{ x.compare_note }}</p>
+        </div>
+
+        <div class="allin reveal">
+          <div class="allin-num"><small>{{ x.allin_label }}</small><strong>{{ x.allin_value }}</strong></div>
+          <div>
+            <h3>{{ x.allin_title }}</h3>
+            <p>{{ x.allin_text | md | safe }}</p>
+            {%- if x.allin_yiddish %}<p class="yi" lang="yi" dir="rtl">{{ x.allin_yiddish }}</p>{% endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {%- set x = s.vision %}
+    <section class="vision" id="vision">
+      <figure class="vision-hero">
+        <div class="vision-img" style="--img: url('{{ x.image }}')" role="img" aria-label="Illustrative concept of the moshav"></div>
+        {%- if x.image_caption %}<figcaption>{{ x.image_caption }}</figcaption>{% endif %}
+        <div class="container vision-title reveal">
+          <p class="eyebrow light">{{ x.eyebrow }}</p>
+          <h2>{{ x.title }} <em>{{ x.title_accent }}</em></h2>
+          <p>{{ x.text }}</p>
+        </div>
+      </figure>
+      <div class="section vision-ideas">
+        <div class="container">
+          <p class="eyebrow">{{ x.ideas_label }}</p>
+          <div class="ideas">
+            {%- set tones = ['', 'terra', 'dark'] %}
+            {%- for idea in x.ideas %}
+            <div class="idea {{ tones[loop.index0 % 3] }} reveal"><h3>{{ idea.title }}</h3><ul>
+              {%- for li in idea.items %}<li>{{ li }}</li>{% endfor -%}
+            </ul></div>
+            {%- endfor %}
+          </div>
+          <div class="voice reveal">
+            <p class="eyebrow light">{{ x.voice_eyebrow }}</p>
+            <h3>{{ x.voice_title }}</h3>
+            <p>{{ x.voice_text | md | safe }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {%- set x = s.join %}
+    {%- set f = s.form %}
+    <section class="join" id="join">
+      <div class="join-bg" style="--img: url('{{ x.image }}')" aria-hidden="true"></div>
+      <div class="container join-inner">
+        <div class="section-head reveal">
+          <p class="eyebrow light">{{ x.eyebrow }}{% if x.eyebrow_yiddish %} · <span lang="yi" dir="rtl">{{ x.eyebrow_yiddish }}</span>{% endif %}</p>
+          <h2>{{ x.title }}</h2>
+          <p class="lede">{{ x.lede }}</p>
+        </div>
+
+        <div class="who reveal">
+          {%- for item in x.who %}
+          <div><h3>{{ item.title }}</h3><p>{{ item.text | md | safe }}</p></div>
+          {%- endfor %}
+        </div>
+        <p class="who-note">{{ x.who_note }}</p>
+
+        <div class="garin reveal" data-committed="{{ x.garin_committed }}" data-goal="{{ x.garin_goal }}">
+          <div class="garin-head"><h3>{{ x.garin_title }}</h3><p><strong>{{ x.garin_committed }}</strong> {{ x.garin_committed_label }}</p></div>
+          <div class="garin-grid" aria-hidden="true"></div>
+        </div>
+
+        <div class="join-grid">
+          <div class="ways reveal">
+            {%- for way in x.ways %}
+            <div><span lang="he">{{ way.letter }}</span><h4>{{ way.title }}</h4><p>{{ way.text }}</p></div>
+            {%- endfor %}
+            <div class="contact">
+              <p class="eyebrow light">{{ x.contact_label }}</p>
+              <a class="email" href="mailto:{{ x.email }}">{{ x.email }}</a>
+              <p>{{ x.phone_text }} · <a href="tel:+1{{ x.phone | replace('-', '') }}">{{ x.phone }}</a></p>
+              {%- if x.whatsapp_number %}
+              <a class="btn btn-ghost btn-small" href="https://wa.me/{{ x.whatsapp_number }}" target="_blank" rel="noopener">{{ x.whatsapp_label }}</a>
+              {%- endif %}
+            </div>
+          </div>
+
+          <form class="form reveal" name="join" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate
+                data-success="{{ f.success }}" data-error="{{ f.error }}">
+            <input type="hidden" name="form-name" value="join">
+            <p class="hidden-field"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+            <h3>{{ f.title }}</h3>
+            <div class="row">
+              <label>{{ f.name }}<input type="text" name="name" autocomplete="name" required></label>
+              <label>{{ f.email }}<input type="email" name="email" autocomplete="email" required></label>
+            </div>
+            <div class="row">
+              <label>{{ f.phone }}<input type="tel" name="phone" autocomplete="tel"></label>
+              <label>{{ f.children }}<input type="number" name="children" min="0" max="25"></label>
+            </div>
+            <label>{{ f.situation }}
+              <select name="situation" required>
+                <option value="">{{ f.situation_placeholder }}</option>
+                {%- for opt in f.situation_options %}
+                <option>{{ opt }}</option>
+                {%- endfor %}
+              </select>
+            </label>
+            <fieldset>
+              <legend>{{ f.stage }}</legend>
+              {%- for opt in f.stage_options %}
+              <label class="choice"><input type="radio" name="stage" value="{{ opt }}"{% if loop.first %} checked{% endif %}> {{ opt }}</label>
+              {%- endfor %}
+            </fieldset>
+            <label>{{ f.message }}<textarea name="message" rows="3"></textarea></label>
+            <button class="btn btn-gold" type="submit">{{ f.button }}</button>
+            <p class="form-consent">{{ f.consent }}</p>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <p class="closing" lang="he" dir="rtl">{{ x.closing }}</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> {{ s.meta.brand }} · {{ s.footer.text }}</p>
+      <p><a href="mailto:{{ s.join.email }}">{{ s.join.email }}</a> · <a href="{{ s.meta.brochure }}" download>{{ s.footer.brochure_label }}</a></p>
+    </div>
+  </footer>
+
+  <script src="/script.js"></script>
+</body>
+</html>

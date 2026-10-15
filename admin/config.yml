@@ -1,0 +1,295 @@
+# Decap CMS — the editor at /admin. Every field here edits _data/site.json.
+backend:
+  name: github
+  repo: Mosesb99/Yishuv
+  branch: claude/community-recruitment-site-t98qrh
+  commit_messages:
+    update: "Update site content"
+
+# Lets the editor run against local files with `npx decap-server` (ignored on the live site)
+local_backend: true
+
+site_url: https://yishuvchasidi.com
+display_url: https://yishuvchasidi.com
+media_folder: assets/uploads
+public_folder: /assets/uploads
+
+collections:
+  - name: content
+    label: Website
+    editor: { preview: false }
+    files:
+      - name: site
+        label: Website content
+        file: _data/site.json
+        format: json
+        fields:
+          - label: "Key numbers (garin)"
+            name: join
+            widget: object
+            collapsed: false
+            summary: "{{fields.garin_committed}} of {{fields.garin_goal}} families"
+            fields:
+              - { label: "Families committed", name: garin_committed, widget: number, value_type: int, min: 0 }
+              - { label: "Goal (number of squares)", name: garin_goal, widget: number, value_type: int, min: 1 }
+              - { label: "Garin heading", name: garin_title, widget: string }
+              - { label: "Text after the number", name: garin_committed_label, widget: string }
+              - label: "Background image"
+                name: image
+                widget: image
+              - { label: "Eyebrow", name: eyebrow, widget: string }
+              - { label: "Eyebrow (Yiddish)", name: eyebrow_yiddish, widget: string, required: false }
+              - { label: "Heading", name: title, widget: string }
+              - { label: "Intro", name: lede, widget: text }
+              - label: "Who it's for"
+                name: who
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+              - { label: "Line under 'who it's for'", name: who_note, widget: string }
+              - label: "Ways to join"
+                name: ways
+                widget: list
+                summary: "{{fields.letter}} {{fields.title}}"
+                fields:
+                  - { label: "Letter", name: letter, widget: string }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: string }
+              - { label: "'Get in touch' label", name: contact_label, widget: string }
+              - { label: "Email address", name: email, widget: string }
+              - { label: "Phone line text", name: phone_text, widget: string }
+              - { label: "Phone number", name: phone, widget: string }
+              - { label: "WhatsApp number (digits only, with country code)", name: whatsapp_number, widget: string, required: false }
+              - { label: "WhatsApp button text", name: whatsapp_label, widget: string }
+              - { label: "Closing line (Hebrew)", name: closing, widget: string }
+
+          - label: "General"
+            name: meta
+            widget: object
+            fields:
+              - { label: "Browser tab title", name: title, widget: string }
+              - { label: "Search engine description", name: description, widget: text }
+              - { label: "Site name (top-left)", name: brand, widget: string }
+              - { label: "Brochure PDF", name: brochure, widget: file }
+
+          - label: "Menu"
+            name: nav
+            widget: object
+            fields:
+              - { label: "Why", name: why, widget: string }
+              - { label: "The Process", name: process, widget: string }
+              - { label: "The Numbers", name: numbers, widget: string }
+              - { label: "The Vision", name: vision, widget: string }
+              - { label: "Button", name: cta, widget: string }
+
+          - label: "1 · Top of page"
+            name: hero
+            widget: object
+            fields:
+              - { label: "Background image", name: image, widget: image }
+              - { label: "Small note on image", name: image_note, widget: string, required: false }
+              - { label: "Pasuk (Hebrew)", name: pasuk, widget: string }
+              - { label: "Pasuk (English)", name: pasuk_en, widget: string }
+              - { label: "Pasuk source", name: pasuk_source, widget: string }
+              - { label: "Eyebrow", name: eyebrow, widget: string }
+              - { label: "Main headline", name: title, widget: text }
+              - { label: "Sub-headline", name: subtitle, widget: text }
+              - { label: "Main button", name: cta_primary, widget: string }
+              - { label: "Brochure button", name: cta_secondary, widget: string }
+              - { label: "Yiddish line", name: yiddish, widget: string }
+              - label: "Stats bar"
+                name: strip
+                widget: list
+                summary: "{{fields.value}} {{fields.label}}"
+                fields:
+                  - { label: Number, name: value, widget: string }
+                  - { label: Label, name: label, widget: string }
+              - { label: "Stats bar: label after 'families committed' number", name: strip_committed_label, widget: string }
+
+          - label: "2 · Our history"
+            name: history
+            widget: object
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string }
+              - { label: "Heading", name: title, widget: string }
+              - { label: "Intro", name: lede, widget: text }
+              - label: "Timeline"
+                name: items
+                widget: list
+                summary: "{{fields.year}}"
+                fields:
+                  - { label: "Year (Hebrew)", name: year, widget: string }
+                  - { label: "Text (**bold**)", name: text, widget: text }
+              - { label: "Closing line", name: kicker, widget: string }
+              - { label: "Closing line (red part)", name: kicker_accent, widget: string }
+
+          - label: "3 · Today (statistics)"
+            name: today
+            widget: object
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string }
+              - { label: "Heading", name: title, widget: string }
+              - label: "Big numbers"
+                name: stats
+                widget: list
+                summary: "{{fields.value}}"
+                fields:
+                  - { label: Number, name: value, widget: string }
+                  - { label: Text, name: text, widget: text }
+              - { label: "Chart: big number", name: grade_value, widget: string }
+              - { label: "Chart: heading", name: grade_title, widget: string }
+              - label: "Chart bars (percentages)"
+                name: bars
+                widget: list
+                summary: "{{fields.year}}"
+                fields:
+                  - { label: Year, name: year, widget: string }
+                  - { label: Secular, name: secular, widget: number, value_type: int }
+                  - { label: Dati, name: dati, widget: number, value_type: int }
+                  - { label: Chareidi, name: chareidi, widget: number, value_type: int }
+              - { label: "Legend: secular", name: legend_secular, widget: string }
+              - { label: "Legend: dati", name: legend_dati, widget: string }
+              - { label: "Legend: chareidi", name: legend_chareidi, widget: string }
+              - { label: "Closing line", name: kicker, widget: string }
+              - { label: "Closing line (red part)", name: kicker_accent, widget: string }
+              - { label: "Sources", name: sources, widget: text }
+
+          - label: "4 · The challenges"
+            name: challenges
+            widget: object
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string }
+              - { label: "Heading", name: title, widget: string }
+              - { label: "Intro", name: lede, widget: text }
+              - { label: "'Our answer' label", name: answer_label, widget: string }
+              - label: "Challenges"
+                name: items
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: "The challenge", name: problem, widget: text }
+                  - { label: "Our answer", name: answer, widget: text }
+
+          - label: "5 · Our mission (photo band)"
+            name: mission
+            widget: object
+            fields:
+              - { label: "Background image", name: image, widget: image }
+              - { label: "Eyebrow", name: eyebrow, widget: string }
+              - label: "Points"
+                name: items
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+
+          - label: "6 · The process"
+            name: process
+            widget: object
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string }
+              - { label: "Heading", name: title, widget: string }
+              - label: "Stages"
+                name: stages
+                widget: list
+                summary: "{{fields.label}} · {{fields.title}}"
+                fields:
+                  - { label: "Letter", name: letter, widget: string }
+                  - { label: "Label", name: label, widget: string }
+                  - { label: "Colour", name: color, widget: select, options: [terra, olive, dark] }
+                  - { label: "Title", name: title, widget: string }
+                  - { label: "Italic line", name: lede, widget: string, required: false }
+                  - { label: "Intro paragraph (**bold**)", name: intro, widget: text, required: false }
+                  - label: "Boxes"
+                    name: cards
+                    widget: list
+                    summary: "{{fields.title}}{{fields.big}}"
+                    fields:
+                      - { label: "Small label", name: tag, widget: string, required: false }
+                      - { label: "Title", name: title, widget: string, required: false }
+                      - { label: "Big number", name: big, widget: string, required: false }
+                      - { label: "Text (**bold**)", name: text, widget: text }
+                      - { label: "Colour", name: style, widget: select, options: [plain, olive, terra], default: plain }
+                  - { label: "Note under boxes", name: note, widget: string, required: false }
+
+          - label: "7 · The numbers"
+            name: numbers
+            widget: object
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string }
+              - { label: "Heading", name: title, widget: string }
+              - label: "Advantages"
+                name: advantages
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+              - { label: "Comparison label", name: compare_label, widget: string }
+              - { label: "Founder: title", name: founder_title, widget: string }
+              - { label: "Founder: subtitle", name: founder_sub, widget: string }
+              - { label: "Founder: price", name: founder_amount, widget: string }
+              - { label: "Founder: price in dollars", name: founder_amount_usd, widget: string }
+              - { label: "Founder bar length (% of the 'later' bar)", name: founder_bar_percent, widget: number, value_type: int, min: 1, max: 100 }
+              - { label: "Later: title", name: later_title, widget: string }
+              - { label: "Later: subtitle", name: later_sub, widget: string }
+              - { label: "Later: price", name: later_amount, widget: string }
+              - { label: "Comparison note", name: compare_note, widget: text }
+              - { label: "All-in: label", name: allin_label, widget: string }
+              - { label: "All-in: big number", name: allin_value, widget: string }
+              - { label: "All-in: heading", name: allin_title, widget: string }
+              - { label: "All-in: text", name: allin_text, widget: text }
+              - { label: "All-in: Yiddish line", name: allin_yiddish, widget: string, required: false }
+
+          - label: "8 · The vision"
+            name: vision
+            widget: object
+            fields:
+              - { label: "Image", name: image, widget: image }
+              - { label: "Image caption", name: image_caption, widget: string, required: false }
+              - { label: "Eyebrow", name: eyebrow, widget: string }
+              - { label: "Heading", name: title, widget: string }
+              - { label: "Heading (gold part)", name: title_accent, widget: string }
+              - { label: "Text", name: text, widget: text }
+              - { label: "Ideas label", name: ideas_label, widget: string }
+              - label: "Idea columns"
+                name: ideas
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Items, name: items, widget: list, field: { label: Item, name: item, widget: string } }
+              - { label: "Green box: eyebrow", name: voice_eyebrow, widget: string }
+              - { label: "Green box: heading", name: voice_title, widget: string }
+              - { label: "Green box: text", name: voice_text, widget: text }
+
+          - label: "9 · Sign-up form"
+            name: form
+            widget: object
+            fields:
+              - { label: "Form heading", name: title, widget: string }
+              - { label: "Name label", name: name, widget: string }
+              - { label: "Email label", name: email, widget: string }
+              - { label: "Phone label", name: phone, widget: string }
+              - { label: "Children label", name: children, widget: string }
+              - { label: "'Where you are now' label", name: situation, widget: string }
+              - { label: "'Choose one' text", name: situation_placeholder, widget: string }
+              - { label: "'Where you are now' options", name: situation_options, widget: list, field: { label: Option, name: option, widget: string } }
+              - { label: "'How would you like to join' label", name: stage, widget: string }
+              - { label: "'How would you like to join' options", name: stage_options, widget: list, field: { label: Option, name: option, widget: string } }
+              - { label: "Message label", name: message, widget: string }
+              - { label: "Button text", name: button, widget: string }
+              - { label: "Mailing-list notice", name: consent, widget: text }
+              - { label: "Thank-you message", name: success, widget: string }
+              - { label: "Error message", name: error, widget: string }
+
+          - label: "Footer"
+            name: footer
+            widget: object
+            fields:
+              - { label: "Text after site name", name: text, widget: string }
+              - { label: "Brochure link text", name: brochure_label, widget: string }
