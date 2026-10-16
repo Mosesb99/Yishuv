@@ -54,7 +54,7 @@
     "consent": "By sending this form you’ll join our mailing list for updates. You can unsubscribe at any time.",
     "email": "Email",
     "situation_options": [
-      "Kollel family in Eretz Yisroel",
+      "Working or kollel family in Eretz Yisroel",
       "Living in Yerushalayim",
       "In America, ready to make aliyah",
       "Other"
@@ -152,7 +152,7 @@
     "phone_text": "Call or WhatsApp M. Lebovits",
     "who": [
       {
-        "title": "Kollel families who want to stay",
+        "title": "Working and kollel families who want to stay",
         "text": "You came after your wedding “for a few years.” Now you want to build your life here."
       },
       {
