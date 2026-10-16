@@ -22,6 +22,9 @@ Stack (decided Oct 2026, owner wants every word editable via one admin login):
   https://yishuvchasidi.netlify.app. Form detection on; sign-up emails → yishuvproject@gmail.com;
   custom domain yishuvchasidi.com + www set. The owner's other Netlify project
   `legendary-fudge-7ce8c4` is an unrelated cleaning-business site. Never touch it.
+- The owner edits through /admin, which commits "Update site content" to GitHub. Always `git pull`
+  before editing `_data/site.json`. An admin tab opened before a code push can save stale content
+  over it (happened 2026-10-16: it dropped `counters`, which was restored in b2af9b1).
 - Domain registered at Cloudflare (nameservers quentin/vera.ns.cloudflare.com).
 
 ## Source of truth: the brochure
