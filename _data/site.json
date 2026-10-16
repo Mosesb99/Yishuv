@@ -136,7 +136,7 @@
     "whatsapp_label": "Message on WhatsApp",
     "eyebrow": "Join us",
     "phone": "929-474-8086",
-    "garin_committed_label": "families already committed",
+    "garin_committed_label": "families already registered",
     "who_note": "Bnei Torah and baalei batim alike.",
     "garin_goal": 50,
     "closing": "ובשם ה׳ נעשה ונצליח",
@@ -382,7 +382,7 @@
     "pasuk_source": "Tehillim 102:15",
     "cta_secondary": "Download the brochure",
     "eyebrow": "Binyamin · Eretz Yisroel",
-    "strip_committed_label": "families already committed",
+    "strip_committed_label": "families already registered",
     "yiddish": "א חסידישער יישוב פאר אמעריקאנער חסידישע משפחות — בני תורה און בעלי בתים",
     "pasuk_en": "“For Your servants cherish her stones, and love her very dust.”",
     "cta_primary": "Become a founding family",
@@ -405,6 +405,29 @@
       }
     ],
     "image": "/assets/img/hills.jpg"
+  },
+  "counters": {
+    "eyebrow": "The garin so far",
+    "title": "Families are already signing up",
+    "as_of": "As of October 16, 2026",
+    "items": [
+      {
+        "value": 61,
+        "label": "Families registered"
+      },
+      {
+        "value": 31,
+        "label": "Already in Eretz Yisroel"
+      },
+      {
+        "value": 28,
+        "label": "In America"
+      },
+      {
+        "value": 164,
+        "label": "Children"
+      }
+    ]
   },
   "footer": {
     "text": "Binyamin, Eretz Yisroel",
