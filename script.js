@@ -33,19 +33,18 @@
     grid.appendChild(cell);
   }
 
-  // Counters: count up from 0 the first time they scroll into view
+  // Counters: tick through every number from 0 up to the real figure
+  // (about 1.5 seconds each) as soon as they're on screen
   var counts = document.querySelectorAll(".count");
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function countUp(el) {
     var target = +el.dataset.to;
-    var start = null;
-    function step(t) {
-      if (start === null) start = t;
-      var p = Math.min((t - start) / 1600, 1);
-      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))).toLocaleString("en-US");
-      if (p < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
+    var n = 0;
+    var timer = setInterval(function () {
+      n += 1;
+      el.textContent = n.toLocaleString("en-US");
+      if (n >= target) clearInterval(timer);
+    }, Math.min(60, Math.max(8, 1500 / target)));
   }
   if ("IntersectionObserver" in window && !reduceMotion) {
     var countIo = new IntersectionObserver(function (entries) {
@@ -55,7 +54,7 @@
           countIo.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.6 });
+    }, { threshold: 0.3 });
     Array.prototype.forEach.call(counts, function (el) {
       el.textContent = "0";
       countIo.observe(el);
