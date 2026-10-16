@@ -66,6 +66,26 @@ permalink: /index.html
       </div>
     </section>
 
+    {%- set x = s.counters %}
+    {%- if x.items.length %}
+    <section class="counters" aria-label="{{ x.eyebrow }}">
+      <div class="container">
+        <div class="counters-head reveal">
+          <div>
+            <p class="eyebrow">{{ x.eyebrow }}</p>
+            <h2>{{ x.title }}</h2>
+          </div>
+          {%- if x.as_of %}<p class="counters-asof">{{ x.as_of }}</p>{% endif %}
+        </div>
+        <div class="counters-grid">
+          {%- for item in x.items %}
+          <div class="counter reveal"><strong class="count" data-to="{{ item.value }}">{{ item.value }}</strong><span>{{ item.label }}</span></div>
+          {%- endfor %}
+        </div>
+      </div>
+    </section>
+    {%- endif %}
+
     {%- set x = s.history %}
     <section class="section history">
       <div class="container">

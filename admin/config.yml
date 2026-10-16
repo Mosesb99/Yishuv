@@ -65,6 +65,23 @@ collections:
               - { label: "WhatsApp button text", name: whatsapp_label, widget: string }
               - { label: "Closing line (Hebrew)", name: closing, widget: string }
 
+          - label: "Sign-up counters"
+            name: counters
+            widget: object
+            collapsed: false
+            summary: "{{fields.as_of}}"
+            fields:
+              - { label: "Eyebrow", name: eyebrow, widget: string }
+              - { label: "Heading", name: title, widget: string }
+              - { label: "'As of' date line", name: as_of, widget: string, required: false }
+              - label: "Counters"
+                name: items
+                widget: list
+                summary: "{{fields.value}} · {{fields.label}}"
+                fields:
+                  - { label: Number, name: value, widget: number, value_type: int, min: 0 }
+                  - { label: Label, name: label, widget: string }
+
           - label: "General"
             name: meta
             widget: object

@@ -27,10 +27,39 @@
   var committed = +garin.dataset.committed;
   var goal = +garin.dataset.goal;
   var grid = garin.querySelector(".garin-grid");
-  for (var i = 0; i < goal; i++) {
+  for (var i = 0; i < Math.max(goal, committed); i++) {
     var cell = document.createElement("i");
     if (i < committed) cell.className = "on";
     grid.appendChild(cell);
+  }
+
+  // Counters: count up from 0 the first time they scroll into view
+  var counts = document.querySelectorAll(".count");
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function countUp(el) {
+    var target = +el.dataset.to;
+    var start = null;
+    function step(t) {
+      if (start === null) start = t;
+      var p = Math.min((t - start) / 1600, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))).toLocaleString("en-US");
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if ("IntersectionObserver" in window && !reduceMotion) {
+    var countIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          countUp(entry.target);
+          countIo.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    Array.prototype.forEach.call(counts, function (el) {
+      el.textContent = "0";
+      countIo.observe(el);
+    });
   }
 
   // Scroll reveal

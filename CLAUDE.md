@@ -18,6 +18,11 @@ Stack (decided Oct 2026, owner wants every word editable via one admin login):
 - Email: Cloudflare Email Routing `info@` → yishuvproject@gmail.com, plus Gmail "send as".
 - Site stays English with Yiddish/Hebrew accents (no full translation planned).
 - `README.md` has the owner's launch checklist.
+- Netlify project **yishuvchasidi** (id fb5aca35-a86f-4dd1-aff7-a3e6197ce4ed, team mmm790793) —
+  https://yishuvchasidi.netlify.app. Form detection on; sign-up emails → yishuvproject@gmail.com;
+  custom domain yishuvchasidi.com + www set. The owner's other Netlify project
+  `legendary-fudge-7ce8c4` is an unrelated cleaning-business site. Never touch it.
+- Domain registered at Cloudflare (nameservers quentin/vera.ns.cloudflare.com).
 
 ## Source of truth: the brochure
 

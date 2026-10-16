@@ -25,24 +25,77 @@
     "cta_secondary": "Download the brochure",
     "yiddish": "א חסידישער יישוב פאר אמעריקאנער חסידישע משפחות — בני תורה און בעלי בתים",
     "strip": [
-      { "value": "½ hour", "label": "from Yerushalayim" },
-      { "value": "500 m²", "label": "plots with gardens" },
-      { "value": "0%", "label": "financing on a caravilla" }
+      {
+        "value": "½ hour",
+        "label": "from Yerushalayim"
+      },
+      {
+        "value": "500 m²",
+        "label": "plots with gardens"
+      },
+      {
+        "value": "0%",
+        "label": "financing on a caravilla"
+      }
     ],
-    "strip_committed_label": "families already committed"
+    "strip_committed_label": "families already registered"
+  },
+  "counters": {
+    "eyebrow": "The garin so far",
+    "title": "Families are already signing up",
+    "as_of": "As of October 16, 2026",
+    "items": [
+      {
+        "value": 61,
+        "label": "Families registered"
+      },
+      {
+        "value": 31,
+        "label": "Already in Eretz Yisroel"
+      },
+      {
+        "value": 28,
+        "label": "In America"
+      },
+      {
+        "value": 164,
+        "label": "Children"
+      }
+    ]
   },
   "history": {
     "eyebrow": "Our history",
     "title": "In every generation",
     "lede": "Yidden have always yearned and striven to go up and live in Eretz Yisroel — our home.",
     "items": [
-      { "year": "כ״ז", "text": "**The Ramban** arrives in Yerushalayim and rebuilds its Jewish community." },
-      { "year": "שפ״א", "text": "**The Shelah HaKadosh** leaves Prague to settle in Eretz Yisroel." },
-      { "year": "תק״ב", "text": "**The Ohr HaChaim** reaches Yerushalayim with his talmidim." },
-      { "year": "~ת״ק", "text": "**The Baal Shem Tov** sets out with true mesirus nefesh — but is not zoche to arrive." },
-      { "year": "תקל״ז", "text": "**Talmidei HaBaal Shem Tov** — some 300 Chassidim — go up together as a chaburah, led by R’ Menachem Mendel of Vitebsk." },
-      { "year": "תקס״ח", "text": "**Talmidei HaGra** follow — and aliyah never stops, to this very day." },
-      { "year": "תשפ״ו", "text": "A true kibbutz galuyos: over **4,300** olim from France, **3,300** from America, nearly **1,000** from England." }
+      {
+        "year": "כ״ז",
+        "text": "**The Ramban** arrives in Yerushalayim and rebuilds its Jewish community."
+      },
+      {
+        "year": "שפ״א",
+        "text": "**The Shelah HaKadosh** leaves Prague to settle in Eretz Yisroel."
+      },
+      {
+        "year": "תק״ב",
+        "text": "**The Ohr HaChaim** reaches Yerushalayim with his talmidim."
+      },
+      {
+        "year": "~ת״ק",
+        "text": "**The Baal Shem Tov** sets out with true mesirus nefesh — but is not zoche to arrive."
+      },
+      {
+        "year": "תקל״ז",
+        "text": "**Talmidei HaBaal Shem Tov** — some 300 Chassidim — go up together as a chaburah, led by R’ Menachem Mendel of Vitebsk."
+      },
+      {
+        "year": "תקס״ח",
+        "text": "**Talmidei HaGra** follow — and aliyah never stops, to this very day."
+      },
+      {
+        "year": "תשפ״ו",
+        "text": "A true kibbutz galuyos: over **4,300** olim from France, **3,300** from America, nearly **1,000** from England."
+      }
     ],
     "kicker": "Every generation had its builders.",
     "kicker_accent": "Now it’s our turn."
@@ -51,14 +104,30 @@
     "eyebrow": "Today · תשפ״ז",
     "title": "Klal Yisroel is coming home",
     "stats": [
-      { "value": "~46%", "text": "of all Jews in the world already live in Eretz Yisroel — on track to pass 50% by about 2035." },
-      { "value": "167,500", "text": "yeshiva and kollel students in Eretz Yisroel — the center of Torah in the world, and still growing." }
+      {
+        "value": "~46%",
+        "text": "of all Jews in the world already live in Eretz Yisroel — on track to pass 50% by about 2035."
+      },
+      {
+        "value": "167,500",
+        "text": "yeshiva and kollel students in Eretz Yisroel — the center of Torah in the world, and still growing."
+      }
     ],
     "grade_value": "52%",
     "grade_title": "of Jewish first-graders are chareidi or dati",
     "bars": [
-      { "year": "2000", "secular": 61, "dati": 20, "chareidi": 20 },
-      { "year": "2025", "secular": 48, "dati": 21, "chareidi": 31 }
+      {
+        "year": "2000",
+        "secular": 61,
+        "dati": 20,
+        "chareidi": 20
+      },
+      {
+        "year": "2025",
+        "secular": 48,
+        "dati": 21,
+        "chareidi": 31
+      }
     ],
     "legend_secular": "Secular",
     "legend_dati": "Dati",
@@ -73,20 +142,50 @@
     "lede": "Why staying is so hard, and how the moshav answers each challenge.",
     "answer_label": "Our answer",
     "items": [
-      { "title": "Kehilla", "problem": "No established kehilla of American Chassidish families. Far from parents and family, a kehilla is everything — without one, most who came “for a few years” go back.", "answer": "A kehilla built by American Chassidish families, for American Chassidish families." },
-      { "title": "Housing", "problem": "Yerushalayim rents are steep, and buying a home is nearly impossible.", "answer": "Land for a symbolic sum — and a real path to owning your own home." },
-      { "title": "Space & calm", "problem": "Tiny apartments and crowded, noisy streets — no room to raise children with menuchas hanefesh.", "answer": "Private homes, gardens, and open space." },
-      { "title": "Chinuch", "problem": "Few mosdos are both serious Chassidish and right for American children — with Yiddish, English and Hebrew all in the mix.", "answer": "Mosdos for our community, with Hebrew–English integration from day one." },
-      { "title": "Parnassah", "problem": "Careers don’t transfer easily — and when support from home runs out, so does the plan to stay.", "answer": "Work near home: remote-work infrastructure, local businesses, and a local economy over time." },
-      { "title": "Putting down roots", "problem": "Renting, moving, waiting — everything about how we live here says “for now.”", "answer": "Ownership from the start: a caravilla that’s yours in 2½ years, then a permanent home." }
+      {
+        "title": "Kehilla",
+        "problem": "No established kehilla of American Chassidish families. Far from parents and family, a kehilla is everything — without one, most who came “for a few years” go back.",
+        "answer": "A kehilla built by American Chassidish families, for American Chassidish families."
+      },
+      {
+        "title": "Housing",
+        "problem": "Yerushalayim rents are steep, and buying a home is nearly impossible.",
+        "answer": "Land for a symbolic sum — and a real path to owning your own home."
+      },
+      {
+        "title": "Space & calm",
+        "problem": "Tiny apartments and crowded, noisy streets — no room to raise children with menuchas hanefesh.",
+        "answer": "Private homes, gardens, and open space."
+      },
+      {
+        "title": "Chinuch",
+        "problem": "Few mosdos are both serious Chassidish and right for American children — with Yiddish, English and Hebrew all in the mix.",
+        "answer": "Mosdos for our community, with Hebrew–English integration from day one."
+      },
+      {
+        "title": "Parnassah",
+        "problem": "Careers don’t transfer easily — and when support from home runs out, so does the plan to stay.",
+        "answer": "Work near home: remote-work infrastructure, local businesses, and a local economy over time."
+      },
+      {
+        "title": "Putting down roots",
+        "problem": "Renting, moving, waiting — everything about how we live here says “for now.”",
+        "answer": "Ownership from the start: a caravilla that’s yours in 2½ years, then a permanent home."
+      }
     ]
   },
   "mission": {
     "image": "/assets/img/hills.jpg",
     "eyebrow": "More than a move · Our mission",
     "items": [
-      { "title": "Building up Yehudah V’Shomron", "text": "Helping build a new, permanent community in the heartland of Eretz Yisroel." },
-      { "title": "Opening the way for American families", "text": "Making it easier for American families to make aliyah — and for those already here to stay for good." }
+      {
+        "title": "Building up Yehudah V’Shomron",
+        "text": "Helping build a new, permanent community in the heartland of Eretz Yisroel."
+      },
+      {
+        "title": "Opening the way for American families",
+        "text": "Making it easier for American families to make aliyah — and for those already here to stay for good."
+      }
     ]
   },
   "process": {
@@ -101,9 +200,27 @@
         "lede": "First we build the group. The land comes after.",
         "intro": "",
         "cards": [
-          { "tag": "", "title": "The founders", "big": "", "text": "50+ families ready to be the founders, making the decisions together.", "style": "plain" },
-          { "tag": "", "title": "Proof of demand", "big": "", "text": "Until now, new yishuvim have been built almost only by the dati-leumi community. A large, serious group shows the authorities real demand from ours.", "style": "plain" },
-          { "tag": "", "title": "The land", "big": "", "text": "Open land in Binyamin, ½ hour from Yerushalayim — or, with a serious group, one of two already-approved yishuvim off Route 443, between Givat Ze’ev and Modi’in.", "style": "plain" }
+          {
+            "tag": "",
+            "title": "The founders",
+            "big": "",
+            "text": "50+ families ready to be the founders, making the decisions together.",
+            "style": "plain"
+          },
+          {
+            "tag": "",
+            "title": "Proof of demand",
+            "big": "",
+            "text": "Until now, new yishuvim have been built almost only by the dati-leumi community. A large, serious group shows the authorities real demand from ours.",
+            "style": "plain"
+          },
+          {
+            "tag": "",
+            "title": "The land",
+            "big": "",
+            "text": "Open land in Binyamin, ½ hour from Yerushalayim — or, with a serious group, one of two already-approved yishuvim off Route 443, between Givat Ze’ev and Modi’in.",
+            "style": "plain"
+          }
         ],
         "note": "Working with the Mateh Binyamin Regional Council — not an outpost."
       },
@@ -115,8 +232,20 @@
         "lede": "",
         "intro": "New yishuvim usually start with Amana’s basic rental caravans: ₪1,000–3,000 a month depending on size (about ₪1,000 per 45 m²), plus ₪1,000 for infrastructure. They’re simple, budget units — not right for every family. **So we’re offering two better options:**",
         "cards": [
-          { "tag": "Option 1 · Confirmed", "title": "Buy a caravilla", "big": "", "text": "A high-standard caravilla, finished inside like a beautiful home. **0% financing over 30 monthly payments** — roughly what you’d pay in rent in Yerushalayim. After 2½ years it’s fully paid off, and it’s yours.", "style": "olive" },
-          { "tag": "Option 2 · In discussion", "title": "Rent a caravilla", "big": "", "text": "The same high-standard caravilla, rented from Amana for a much lower monthly cost. We’re working to convince Amana to offer it.", "style": "plain" }
+          {
+            "tag": "Option 1 · Confirmed",
+            "title": "Buy a caravilla",
+            "big": "",
+            "text": "A high-standard caravilla, finished inside like a beautiful home. **0% financing over 30 monthly payments** — roughly what you’d pay in rent in Yerushalayim. After 2½ years it’s fully paid off, and it’s yours.",
+            "style": "olive"
+          },
+          {
+            "tag": "Option 2 · In discussion",
+            "title": "Rent a caravilla",
+            "big": "",
+            "text": "The same high-standard caravilla, rented from Amana for a much lower monthly cost. We’re working to convince Amana to offer it.",
+            "style": "plain"
+          }
         ],
         "note": ""
       },
@@ -128,9 +257,27 @@
         "lede": "",
         "intro": "",
         "cards": [
-          { "tag": "", "title": "", "big": "", "text": "A real town: streets, infrastructure, every communal need.", "style": "plain" },
-          { "tag": "", "title": "", "big": "", "text": "Land through bar-reshut or a ~50-year lease for a symbolic sum — you pay mainly for infrastructure.", "style": "terra" },
-          { "tag": "", "title": "", "big": "₪200,000", "text": "Infrastructure per 500 m² plot — rough estimate (about $65,000).", "style": "plain" }
+          {
+            "tag": "",
+            "title": "",
+            "big": "",
+            "text": "A real town: streets, infrastructure, every communal need.",
+            "style": "plain"
+          },
+          {
+            "tag": "",
+            "title": "",
+            "big": "",
+            "text": "Land through bar-reshut or a ~50-year lease for a symbolic sum — you pay mainly for infrastructure.",
+            "style": "terra"
+          },
+          {
+            "tag": "",
+            "title": "",
+            "big": "₪200,000",
+            "text": "Infrastructure per 500 m² plot — rough estimate (about $65,000).",
+            "style": "plain"
+          }
         ],
         "note": ""
       }
@@ -140,8 +287,14 @@
     "eyebrow": "The numbers",
     "title": "The founders’ advantage",
     "advantages": [
-      { "title": "The land", "text": "Land comes through bar-reshut or a ~50-year lease for only a symbolic sum — founders pay mainly for infrastructure." },
-      { "title": "A real say", "text": "This is not a developer. Every family who is there has an equal say in how the moshav is set up." }
+      {
+        "title": "The land",
+        "text": "Land comes through bar-reshut or a ~50-year lease for only a symbolic sum — founders pay mainly for infrastructure."
+      },
+      {
+        "title": "A real say",
+        "text": "This is not a developer. Every family who is there has an equal say in how the moshav is set up."
+      }
     ],
     "compare_label": "Cost of a 500 m² plot",
     "founder_title": "Founding family",
@@ -168,9 +321,33 @@
     "text": "As founders, we’re not buying into someone else’s plan. Together, we decide what this community becomes.",
     "ideas_label": "Some of the ideas already on the table",
     "ideas": [
-      { "title": "Torah & Chinuch", "items": ["A chinuch charter the founders write together", "A beis medrash with daily shiurim", "Shiurim and classes for women", "A women’s wellness center, spa and mikvah"] },
-      { "title": "Family & Nature", "items": ["Homes with gardens and room to grow", "Big play yards and a kiddie house", "Walking trails, courts and ponds", "A working greenhouse and gardens"] },
-      { "title": "Kehilla & Parnassah", "items": ["Neighbors who know and carry one another", "A café and places to gather", "Work near home: a remote-work hub and local businesses", "A guest house for family and visitors"] }
+      {
+        "title": "Torah & Chinuch",
+        "items": [
+          "A chinuch charter the founders write together",
+          "A beis medrash with daily shiurim",
+          "Shiurim and classes for women",
+          "A women’s wellness center, spa and mikvah"
+        ]
+      },
+      {
+        "title": "Family & Nature",
+        "items": [
+          "Homes with gardens and room to grow",
+          "Big play yards and a kiddie house",
+          "Walking trails, courts and ponds",
+          "A working greenhouse and gardens"
+        ]
+      },
+      {
+        "title": "Kehilla & Parnassah",
+        "items": [
+          "Neighbors who know and carry one another",
+          "A café and places to gather",
+          "Work near home: a remote-work hub and local businesses",
+          "A guest house for family and visitors"
+        ]
+      }
     ],
     "voice_eyebrow": "Built by its founders",
     "voice_title": "Every founding family has a voice.",
@@ -183,19 +360,40 @@
     "title": "Become a founding family",
     "lede": "Help build up Yehudah V’Shomron — and lay the foundation of a new Chassidish moshav for American families.",
     "who": [
-      { "title": "Kollel families who want to stay", "text": "You came after your wedding “for a few years.” Now you want to build your life here." },
-      { "title": "Already in Yerushalayim", "text": "Families ready to trade a cramped apartment for a real home and a kehilla of their own." },
-      { "title": "Ready to make aliyah", "text": "Families in America with established careers, ready to come home." }
+      {
+        "title": "Kollel families who want to stay",
+        "text": "You came after your wedding “for a few years.” Now you want to build your life here."
+      },
+      {
+        "title": "Already in Yerushalayim",
+        "text": "Families ready to trade a cramped apartment for a real home and a kehilla of their own."
+      },
+      {
+        "title": "Ready to make aliyah",
+        "text": "Families in America with established careers, ready to come home."
+      }
     ],
     "who_note": "Bnei Torah and baalei batim alike.",
     "garin_title": "The founding garin — starting with 50+ families",
-    "garin_committed": 22,
+    "garin_committed": 61,
     "garin_goal": 50,
-    "garin_committed_label": "families already committed",
+    "garin_committed_label": "families already registered",
     "ways": [
-      { "letter": "א", "title": "In the garin", "text": "As a founder, with an equal say in every decision." },
-      { "letter": "ב", "title": "In Stage B", "text": "Move in with the next families, in caravillas." },
-      { "letter": "ג", "title": "Or later", "text": "Join down the road — but reach out now." }
+      {
+        "letter": "א",
+        "title": "In the garin",
+        "text": "As a founder, with an equal say in every decision."
+      },
+      {
+        "letter": "ב",
+        "title": "In Stage B",
+        "text": "Move in with the next families, in caravillas."
+      },
+      {
+        "letter": "ג",
+        "title": "Or later",
+        "text": "Join down the road — but reach out now."
+      }
     ],
     "contact_label": "Get in touch",
     "email": "yishuvproject@gmail.com",
@@ -213,9 +411,18 @@
     "children": "Number of children",
     "situation": "Where you are now",
     "situation_placeholder": "Choose one…",
-    "situation_options": ["Kollel family in Eretz Yisroel", "Living in Yerushalayim", "In America, ready to make aliyah", "Other"],
+    "situation_options": [
+      "Kollel family in Eretz Yisroel",
+      "Living in Yerushalayim",
+      "In America, ready to make aliyah",
+      "Other"
+    ],
     "stage": "How would you like to join?",
-    "stage_options": ["In the garin, as a founder", "In Stage B, in a caravilla", "Later on — keep me posted"],
+    "stage_options": [
+      "In the garin, as a founder",
+      "In Stage B, in a caravilla",
+      "Later on — keep me posted"
+    ],
     "message": "Anything you’d like us to know",
     "button": "Send",
     "consent": "By sending this form you’ll join our mailing list for updates. You can unsubscribe at any time.",
