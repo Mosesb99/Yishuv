@@ -22,31 +22,66 @@
     }
   });
 
-  // Garin progress squares (numbers come from the site content)
+  // Garin progress squares (numbers come from the site content, then the live sheet)
   var garin = document.querySelector(".garin");
-  var committed = +garin.dataset.committed;
   var goal = +garin.dataset.goal;
   var grid = garin.querySelector(".garin-grid");
-  for (var i = 0; i < Math.max(goal, committed); i++) {
-    var cell = document.createElement("i");
-    if (i < committed) cell.className = "on";
-    grid.appendChild(cell);
+  function renderGarin(committed) {
+    grid.innerHTML = "";
+    for (var i = 0; i < Math.max(goal, committed); i++) {
+      var cell = document.createElement("i");
+      if (i < committed) cell.className = "on";
+      grid.appendChild(cell);
+    }
   }
+  renderGarin(+garin.dataset.committed);
 
   // Counters: tick through every number from 0 up to the real figure
   // (about 1.5 seconds each) as soon as they're on screen
   var counts = document.querySelectorAll(".count");
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var animating = "IntersectionObserver" in window && !reduceMotion;
   function countUp(el) {
-    var target = +el.dataset.to;
     var n = 0;
+    el.dataset.state = "running";
     var timer = setInterval(function () {
-      n += 1;
+      var target = +el.dataset.to; // re-read so live numbers can arrive mid-count
+      if (n < target) n += 1;
       el.textContent = n.toLocaleString("en-US");
-      if (n >= target) clearInterval(timer);
-    }, Math.min(60, Math.max(8, 1500 / target)));
+      if (n >= target) {
+        clearInterval(timer);
+        el.dataset.state = "done";
+        el.textContent = target.toLocaleString("en-US");
+      }
+    }, Math.min(60, Math.max(8, 1500 / Math.max(+el.dataset.to, 1))));
   }
-  if ("IntersectionObserver" in window && !reduceMotion) {
+
+  // Live numbers from the Google Sheet (falls back to the admin numbers if unavailable)
+  if (window.fetch) {
+    fetch("/api/counts")
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (live) {
+        if (!live || !live.families) return;
+        Array.prototype.forEach.call(document.querySelectorAll(".count[data-source]"), function (el) {
+          var value = live[el.dataset.source];
+          if (typeof value !== "number") return;
+          el.dataset.to = value;
+          if (!animating || el.dataset.state === "done") el.textContent = value.toLocaleString("en-US");
+        });
+        Array.prototype.forEach.call(document.querySelectorAll("[data-live=families]"), function (el) {
+          el.textContent = live.families;
+        });
+        renderGarin(live.families);
+        var asof = document.querySelector(".counters-asof");
+        if (asof && live.updated) {
+          asof.textContent = "Updated " + new Date(live.updated).toLocaleDateString("en-US",
+            { month: "long", day: "numeric", year: "numeric" });
+        }
+      })
+      .catch(function () {});
+  }
+
+  if (animating) {
     var countIo = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {

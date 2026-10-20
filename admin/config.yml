@@ -79,8 +79,18 @@ collections:
                 widget: list
                 summary: "{{fields.value}} · {{fields.label}}"
                 fields:
-                  - { label: Number, name: value, widget: number, value_type: int, min: 0 }
+                  - { label: "Number (backup if the sheet can't be reached)", name: value, widget: number, value_type: int, min: 0 }
                   - { label: Label, name: label, widget: string }
+                  - label: "Take the number live from the Google Sheet"
+                    name: source
+                    widget: select
+                    default: manual
+                    options:
+                      - { label: "Total families", value: families }
+                      - { label: "Families in Eretz Yisroel", value: israel }
+                      - { label: "Families abroad", value: abroad }
+                      - { label: "Total children", value: children }
+                      - { label: "No, use the number above", value: manual }
 
           - label: "General"
             name: meta

@@ -413,19 +413,23 @@
     "items": [
       {
         "value": 61,
-        "label": "Families registered"
+        "label": "Families registered",
+        "source": "families"
       },
       {
         "value": 31,
-        "label": "Already in Eretz Yisroel"
+        "label": "Already in Eretz Yisroel",
+        "source": "israel"
       },
       {
         "value": 28,
-        "label": "In America"
+        "label": "In America & abroad",
+        "source": "abroad"
       },
       {
         "value": 164,
-        "label": "Children"
+        "label": "Children",
+        "source": "children"
       }
     ]
   },

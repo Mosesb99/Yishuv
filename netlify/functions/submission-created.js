@@ -1,17 +1,31 @@
 // Runs automatically on Netlify after every verified form submission.
-// Adds the person to the MailerLite mailing list.
+// 1. Adds the sign-up to the "Website sign-ups" tab of the Google Sheet.
+// 2. Adds the person to the MailerLite mailing list.
 //
-// Set these in Netlify → Site configuration → Environment variables:
-//   MAILERLITE_API_KEY   MailerLite → Integrations → API → Generate new token
-//   MAILERLITE_GROUP_ID  (optional) MailerLite → Subscribers → Groups → the group's ID
-exports.handler = async (event) => {
-  const { payload } = JSON.parse(event.body);
-  const data = payload.data || {};
-  const apiKey = process.env.MAILERLITE_API_KEY;
+// Set these in Netlify → Project configuration → Environment variables:
+//   SHEET_WEBHOOK_URL     the Apps Script web app /exec URL
+//   SHEET_WEBHOOK_SECRET  the same secret as in the Apps Script
+//   MAILERLITE_API_KEY    MailerLite → Integrations → API → Generate new token
+//   MAILERLITE_GROUP_ID   (optional) MailerLite → Subscribers → Groups → the group's ID
+async function addToSheet(payload) {
+  const url = process.env.SHEET_WEBHOOK_URL;
+  const secret = process.env.SHEET_WEBHOOK_SECRET;
+  if (!url || !secret) return "sheet not configured";
 
-  if (payload.form_name !== "join" || !data.email || !apiKey) {
-    return { statusCode: 200, body: "skipped" };
-  }
+  const res = await fetch(url, {
+    method: "POST",
+    redirect: "follow",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ secret, id: payload.id, data: payload.data || {} })
+  });
+  const text = await res.text();
+  if (!res.ok || !text.includes('"ok":true')) throw new Error(`sheet ${res.status}: ${text.slice(0, 200)}`);
+  return "sheet ok";
+}
+
+async function addToMailingList(data) {
+  const apiKey = process.env.MAILERLITE_API_KEY;
+  if (!apiKey || !data.email) return "mailerlite not configured";
 
   const groupId = process.env.MAILERLITE_GROUP_ID;
   const res = await fetch("https://connect.mailerlite.com/api/subscribers", {
@@ -27,10 +41,15 @@ exports.handler = async (event) => {
       groups: groupId ? [groupId] : []
     })
   });
+  if (!res.ok) throw new Error(`mailerlite ${res.status}: ${await res.text()}`);
+  return "mailerlite ok";
+}
 
-  if (!res.ok) {
-    console.error("MailerLite error", res.status, await res.text());
-    return { statusCode: 502, body: "mailing list error" };
-  }
-  return { statusCode: 200, body: "added" };
+exports.handler = async (event) => {
+  const { payload } = JSON.parse(event.body);
+  if (payload.form_name !== "join") return { statusCode: 200, body: "skipped" };
+
+  const results = await Promise.allSettled([addToSheet(payload), addToMailingList(payload.data || {})]);
+  results.forEach((r) => (r.status === "rejected" ? console.error(r.reason) : console.log(r.value)));
+  return { statusCode: 200, body: "done" };
 };

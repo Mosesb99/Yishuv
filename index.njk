@@ -61,7 +61,7 @@ permalink: /index.html
           {%- for item in h.strip %}
           <div><strong>{{ item.value }}</strong><span>{{ item.label }}</span></div>
           {%- endfor %}
-          <div><strong>{{ s.join.garin_committed }}</strong><span>{{ h.strip_committed_label }}</span></div>
+          <div><strong data-live="families">{{ s.join.garin_committed }}</strong><span>{{ h.strip_committed_label }}</span></div>
         </div>
       </div>
     </section>
@@ -75,11 +75,11 @@ permalink: /index.html
             <p class="eyebrow">{{ x.eyebrow }}</p>
             <h2>{{ x.title }}</h2>
           </div>
-          {%- if x.as_of %}<p class="counters-asof">{{ x.as_of }}</p>{% endif %}
+          <p class="counters-asof">{{ x.as_of }}</p>
         </div>
         <div class="counters-grid">
           {%- for item in x.items %}
-          <div class="counter reveal"><strong class="count" data-to="{{ item.value }}">{{ item.value }}</strong><span>{{ item.label }}</span></div>
+          <div class="counter reveal"><strong class="count" data-to="{{ item.value }}"{% if item.source and item.source != 'manual' %} data-source="{{ item.source }}"{% endif %}>{{ item.value }}</strong><span>{{ item.label }}</span></div>
           {%- endfor %}
         </div>
       </div>
@@ -279,7 +279,7 @@ permalink: /index.html
         <p class="who-note">{{ x.who_note }}</p>
 
         <div class="garin reveal" data-committed="{{ x.garin_committed }}" data-goal="{{ x.garin_goal }}">
-          <div class="garin-head"><h3>{{ x.garin_title }}</h3><p><strong>{{ x.garin_committed }}</strong> {{ x.garin_committed_label }}</p></div>
+          <div class="garin-head"><h3>{{ x.garin_title }}</h3><p><strong data-live="families">{{ x.garin_committed }}</strong> {{ x.garin_committed_label }}</p></div>
           <div class="garin-grid" aria-hidden="true"></div>
         </div>
 
