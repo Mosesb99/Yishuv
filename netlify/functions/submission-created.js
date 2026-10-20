@@ -7,16 +7,26 @@
 //   SHEET_WEBHOOK_SECRET  the same secret as in the Apps Script
 //   MAILERLITE_API_KEY    MailerLite → Integrations → API → Generate new token
 //   MAILERLITE_GROUP_ID   (optional) MailerLite → Subscribers → Groups → the group's ID
+// Google Sheets reads text starting with = + - @ as a formula (a "+972…" phone becomes #ERROR!).
+// A leading apostrophe makes the sheet store it as plain text.
+function asText(value) {
+  const text = value == null ? "" : String(value);
+  return /^[=+\-@]/.test(text) ? "'" + text : text;
+}
+
 async function addToSheet(payload) {
   const url = process.env.SHEET_WEBHOOK_URL;
   const secret = process.env.SHEET_WEBHOOK_SECRET;
   if (!url || !secret) return "sheet not configured";
 
+  const data = {};
+  for (const [key, value] of Object.entries(payload.data || {})) data[key] = asText(value);
+
   const res = await fetch(url, {
     method: "POST",
     redirect: "follow",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ secret, id: payload.id, data: payload.data || {} })
+    body: JSON.stringify({ secret, id: payload.id, data })
   });
   const text = await res.text();
   if (!res.ok || !text.includes('"ok":true')) throw new Error(`sheet ${res.status}: ${text.slice(0, 200)}`);
