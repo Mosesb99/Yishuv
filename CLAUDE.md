@@ -25,6 +25,13 @@ Stack (decided Oct 2026, owner wants every word editable via one admin login):
 - The owner edits through /admin, which commits "Update site content" to GitHub. Always `git pull`
   before editing `_data/site.json`. An admin tab opened before a code push can save stale content
   over it (happened 2026-10-16: it dropped `counters`, which was restored in b2af9b1).
+- Google Sheet "Yishuv Family Signup" (id 1qQAnCnK7M3fJkCEK8Lf_JvRwfAXWlZCJ5Ab5rpXLUIQ; owner
+  Lebovits, editor yishuvproject@gmail.com; Claude's Drive connector = smestatesusa@gmail.com, viewer).
+  Bound Apps Script web app (source: `google-apps-script/Code.gs`, deployed copy has the real secret)
+  — GET returns totals from tab "רישום משפחות" (rows, col H country, col L children); POST appends
+  to tab "Website sign-ups". Netlify env: SHEET_WEBHOOK_URL, SHEET_WEBHOOK_SECRET. `/api/counts`
+  (netlify/functions/counts.mjs, 5-min CDN cache) feeds the counters; admin numbers are the fallback.
+  Website sign-ups are NOT counted until the team moves them into the main tab.
 - Domain registered at Cloudflare (nameservers quentin/vera.ns.cloudflare.com).
 
 ## Source of truth: the brochure
