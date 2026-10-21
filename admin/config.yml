@@ -38,6 +38,7 @@ collections:
               - { label: "Goal (number of squares)", name: garin_goal, widget: number, value_type: int, min: 1 }
               - { label: "Garin heading", name: garin_title, widget: string }
               - { label: "Text after the number", name: garin_committed_label, widget: string }
+              - { label: "Line under the squares", name: garin_legend, widget: string, required: false }
               - label: "Background image"
                 name: image
                 widget: image
@@ -204,11 +205,19 @@ collections:
                   - { label: "The challenge", name: problem, widget: text }
                   - { label: "Our answer", name: answer, widget: text }
 
-          - label: "5 · Our mission (photo band)"
+          - label: "Landscape photo (between the statistics and the challenges)"
+            name: landscape
+            widget: object
+            fields:
+              - { label: "Image", name: image, widget: image }
+              - { label: "Caption (say if it's illustrative, and credit the photographer)", name: caption, widget: string }
+
+          - label: "5 · Our mission (photo beside text)"
             name: mission
             widget: object
             fields:
-              - { label: "Background image", name: image, widget: image }
+              - { label: "Image", name: image, widget: image }
+              - { label: "Image caption", name: image_caption, widget: string }
               - { label: "Eyebrow", name: eyebrow, widget: string }
               - label: "Points"
                 name: items

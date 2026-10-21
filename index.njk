@@ -22,6 +22,8 @@ permalink: /index.html
   <header class="nav" id="nav">
     <div class="wrap nav-inner">
       <a class="brand" href="#top">{{ s.meta.brand }}</a>
+      <p class="bsd" lang="he" dir="rtl">בס״ד</p>
+      <a class="nav-join" href="#join">{{ s.nav.cta }}</a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
         <span></span><span></span>
       </button>
@@ -38,17 +40,18 @@ permalink: /index.html
   <main id="main">
     {%- set h = s.hero %}
     <section class="hero" id="top">
-      <div class="hero-img" style="--img: url('{{ h.image }}')" aria-hidden="true"></div>
-      <p class="bsd" lang="he" dir="rtl">בס״ד</p>
-      <div class="wrap hero-body">
+      <figure class="hero-media">
+        <div class="hero-img" style="--img: url('{{ h.image }}')" role="img" aria-label="Illustrative view of terraced olive groves in the hills"></div>
+        {%- if h.image_note %}<figcaption class="img-note">{{ h.image_note }}</figcaption>{% endif %}
+      </figure>
+      <div class="hero-body">
         <h1>{{ h.title }}</h1>
         <p class="hero-sub">{{ h.subtitle | md | safe }}</p>
         <div class="hero-cta">
-          <a class="btn btn-light" href="#join">{{ h.cta_primary }}</a>
-          <a class="btn btn-outline" href="{{ s.meta.brochure }}" download>{{ h.cta_secondary }}</a>
+          <a class="btn btn-solid" href="#join">{{ h.cta_primary }}</a>
+          <a class="btn btn-line" href="{{ s.meta.brochure }}" download>{{ h.cta_secondary }}</a>
         </div>
       </div>
-      {%- if h.image_note %}<p class="img-note">{{ h.image_note }}</p>{% endif %}
     </section>
 
     {%- set x = s.counters %}
@@ -99,7 +102,7 @@ permalink: /index.html
         <h2 class="center-head">{{ x.title }}</h2>
         <div class="figures">
           {%- for stat in x.stats %}
-          <div class="figure"><strong>{{ stat.value }}</strong><p>{{ stat.text | md | safe }}</p></div>
+          <p class="figure"><strong class="tnum">{{ stat.value }}</strong> {{ stat.text | md | safe }}</p>
           {%- endfor %}
         </div>
         <div class="grade">
@@ -113,6 +116,14 @@ permalink: /index.html
         <p class="sources">{{ x.sources }}</p>
       </div>
     </section>
+
+    {%- set x = s.landscape %}
+    {%- if x and x.image %}
+    <figure class="plate">
+      <img src="{{ x.image }}" alt="{{ x.caption }}" loading="lazy" width="2400" height="1152">
+      {%- if x.caption %}<figcaption class="wrap">{{ x.caption }}</figcaption>{% endif %}
+    </figure>
+    {%- endif %}
 
     {%- set x = s.challenges %}
     <section class="section" id="why">
@@ -136,7 +147,10 @@ permalink: /index.html
 
     {%- set x = s.mission %}
     <section class="feature">
-      <div class="feature-img" style="--img: url('{{ x.image }}')" role="img" aria-label="Illustrative view of stone homes among olive terraces"></div>
+      <figure class="feature-media">
+        <div class="feature-img" style="--img: url('{{ x.image }}')" role="img" aria-label="{{ x.image_caption }}"></div>
+        {%- if x.image_caption %}<figcaption>{{ x.image_caption }}</figcaption>{% endif %}
+      </figure>
       <div class="feature-text">
         <h2>{{ x.eyebrow }}</h2>
         {%- for item in x.items %}
@@ -162,8 +176,7 @@ permalink: /index.html
               <div class="points{% if stage.cards.length == 2 %} points-2{% endif %}">
                 {%- for card in stage.cards %}
                 <div class="point point-{{ card.style }}">
-                  {%- if card.tag %}<p class="point-tag">{{ card.tag }}</p>{% endif %}
-                  {%- if card.title %}<h4>{{ card.title }}</h4>{% endif %}
+                  {%- if card.title %}<h4>{{ card.title }}{% if card.tag %} <span class="point-status">{{ card.tag }}</span>{% endif %}</h4>{% elif card.tag %}<h4>{{ card.tag }}</h4>{% endif %}
                   {%- if card.big %}<p class="point-big tnum">{{ card.big }}</p>{% endif %}
                   <p>{{ card.text | md | safe }}</p>
                 </div>
@@ -203,9 +216,9 @@ permalink: /index.html
         </div>
 
         <div class="allin">
-          <p class="allin-value tnum"><span>{{ x.allin_label }}</span>{{ x.allin_value }}</p>
+          <p class="allin-value tnum">{{ x.allin_value }}</p>
           <div>
-            <h3>{{ x.allin_title }}</h3>
+            <h3>{{ x.allin_label }}: {{ x.allin_title }}</h3>
             <p>{{ x.allin_text | md | safe }}</p>
             {%- if x.allin_yiddish %}<p class="yi" lang="yi" dir="rtl">{{ x.allin_yiddish }}</p>{% endif %}
           </div>
@@ -259,6 +272,7 @@ permalink: /index.html
         <div class="garin" data-committed="{{ x.garin_committed }}" data-goal="{{ x.garin_goal }}">
           <div class="garin-head"><h3>{{ x.garin_title }}</h3><p><strong class="tnum" data-live="families">{{ x.garin_committed }}</strong> {{ x.garin_committed_label }}</p></div>
           <div class="garin-grid" aria-hidden="true"></div>
+          {%- if x.garin_legend %}<p class="garin-legend">{{ x.garin_legend }}</p>{% endif %}
         </div>
 
         <div class="join-grid">
@@ -285,7 +299,7 @@ permalink: /index.html
             <h3>{{ f.title }}</h3>
 
             <fieldset class="form-part">
-              <legend>{{ f.section_family }}</legend>
+              <legend class="sr-only">{{ f.section_family }}</legend>
               <label>{{ f.family_name }}<input type="text" name="family_name" autocomplete="family-name" required></label>
               <div class="row row-age">
                 <label>{{ f.husband_name }}<input type="text" name="husband_name"></label>

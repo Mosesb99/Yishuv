@@ -35,6 +35,10 @@
       }
     ]
   },
+  "landscape": {
+    "image": "/assets/img/binyamin-hills-2.jpg",
+    "caption": "Homes among the terraced hills of Binyamin, near Eli. Photo: עדירל, Wikimedia Commons, CC BY-SA 4.0"
+  },
   "nav": {
     "why": "Why",
     "process": "The Process",
@@ -176,6 +180,7 @@
     "eyebrow": "Join us",
     "phone": "929-474-8086",
     "garin_committed_label": "families already registered",
+    "garin_legend": "Each square is one family. The brass line marks the founding goal.",
     "who_note": "Bnei Torah and baalei batim alike.",
     "garin_goal": 50,
     "closing": "ובשם ה׳ נעשה ונצליח",
@@ -234,7 +239,7 @@
     "allin_title": "A spacious ~300 m² home on its own plot."
   },
   "mission": {
-    "image": "/assets/img/hills.jpg",
+    "image": "/assets/img/binyamin-hills-1.jpg",
     "eyebrow": "More than a move",
     "items": [
       {
@@ -245,7 +250,8 @@
         "title": "Opening the way for American families",
         "text": "Making it easier for American families to make aliyah, and for those already here to stay for good."
       }
-    ]
+    ],
+    "image_caption": "The hills of Binyamin, near Eli. Photo: עדירל, Wikimedia Commons, CC BY-SA 4.0"
   },
   "process": {
     "eyebrow": "The process",

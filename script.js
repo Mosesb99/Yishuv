@@ -31,6 +31,7 @@
     for (var i = 0; i < Math.max(goal, committed); i++) {
       var cell = document.createElement("i");
       if (i < committed) cell.className = "on";
+      if (i === goal - 1) cell.className += " goal"; // a brass tick marks the founding goal
       grid.appendChild(cell);
     }
   }
