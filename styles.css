@@ -225,7 +225,7 @@ strong { font-weight: 700; }
 .point-status { display: block; margin-top: 4px; font: 600 .82rem var(--sans); color: var(--brass-2); }
 .point-big { font: 400 2.4rem/1 var(--serif) !important; color: var(--ink) !important; margin-bottom: 8px !important; }
 .point-terra p { color: var(--ink); font-weight: 600; }
-.note { margin: 24px 0 0; font-size: .95rem; color: var(--ink-2); }
+.note { margin: 24px 0 0; font-size: 1rem; font-weight: 700; color: var(--ink); }
 @media (max-width: 860px) {
   .stage { grid-template-columns: 1fr; gap: 10px; }
   .stage-mark { font-size: 0; }
