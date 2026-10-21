@@ -145,10 +145,7 @@ function notify_(fields) {
       to: NOTIFY_EMAIL,
       replyTo: value("Email") || NOTIFY_EMAIL,
       subject: "New website sign-up: " + (value("Name") || value("Family name") || "family"),
-      body: lines.join("
-") + "
-
-Saved in the \"" + SIGNUPS_TAB + "\" tab: " + SpreadsheetApp.getActive().getUrl()
+      body: lines.join("\n") + "\n\nSaved in the \"" + SIGNUPS_TAB + "\" tab: " + SpreadsheetApp.getActive().getUrl()
     });
   } catch (err) {
     console.error(err);
