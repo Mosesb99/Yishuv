@@ -40,8 +40,9 @@ Stack (decided Oct 2026, owner wants every word editable via one admin login):
 
 ## Design (Impeccable)
 
-- Redesign lives on branch `redesign` (preview: https://redesign.yishuvchasidi.pages.dev) until the
-  owner says "make it live"; then merge into `claude/community-recruitment-site-t98qrh`.
+- The redesign went live on 2026-10-21 (fast-forward of `redesign` into
+  `claude/community-recruitment-site-t98qrh`). Use a branch + its pages.dev preview for future
+  visual changes, and merge when the owner approves.
 - Design tool: Impeccable skill (installed globally, telemetry off, no hooks). `PRODUCT.md` holds
   product truth, `DESIGN.md` + `.impeccable/design.json` hold the visual system, and
   `.impeccable/surfaces/index-njk.md` holds the direction contract. Owner chose the
