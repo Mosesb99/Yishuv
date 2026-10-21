@@ -98,17 +98,26 @@ export async function onRequestPost({ request, env, waitUntil }) {
     return reply({ ok: false, error: "bad request" }, 400);
   }
 
-  // Spam checks: the hidden honeypot field must be empty and the form can't be filled instantly.
-  // Bots get a normal-looking "ok" so they don't retry.
-  const started = parseInt(d.t, 10);
-  if (d["bot-field"] || !started || Date.now() - started < MIN_FILL_MS) return reply({ ok: true });
+  const id = crypto.randomUUID();
+  const received = new Date().toISOString();
+
+  // Spam checks: the hidden honeypot field must be empty, and the form can't be filled within
+  // seconds. The fill time ("e") is measured on the visitor's own device, so a phone or computer
+  // whose clock is wrong is never mistaken for a bot. Suspected spam still gets a normal "ok" (so
+  // bots don't retry) and is kept, flagged, rather than thrown away.
+  const elapsed = parseInt(d.e, 10);
+  const spam = d["bot-field"] ? "hidden field filled" : !(elapsed >= MIN_FILL_MS) ? "sent too fast" : "";
+  if (spam) {
+    if (env.SIGNUPS) {
+      const record = { id, received, savedToSheet: false, spam, fields: sheetFields(d) };
+      waitUntil(env.SIGNUPS.put(`signup:${received}:${id}`, JSON.stringify(record)).catch((err) => console.error("kv", err)));
+    }
+    return reply({ ok: true });
+  }
 
   if (REQUIRED.some((key) => !String(d[key] || "").trim())) {
     return reply({ ok: false, error: "missing fields" }, 422);
   }
-
-  const id = crypto.randomUUID();
-  const received = new Date().toISOString();
 
   // Every sign-up is also kept in Cloudflare KV (binding SIGNUPS), so nothing is lost if the
   // Google Sheet can't be reached. Download them all at /api/signups-export?key=<sheet secret>.

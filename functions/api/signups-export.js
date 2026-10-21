@@ -18,7 +18,7 @@ export async function onRequestGet({ request, env }) {
     cursor = page.list_complete ? undefined : page.cursor;
   } while (cursor);
 
-  const headings = ["Received", "Saved to sheet"];
+  const headings = ["Received", "Saved to sheet", "Suspected spam"];
   for (const r of records) for (const [h] of r.fields) if (!headings.includes(h)) headings.push(h);
 
   const cell = (v) => {
@@ -30,6 +30,7 @@ export async function onRequestGet({ request, env }) {
     const byHeading = Object.fromEntries(r.fields);
     byHeading.Received = r.received;
     byHeading["Saved to sheet"] = r.savedToSheet ? "Yes" : "No";
+    byHeading["Suspected spam"] = r.spam || "";
     lines.push(headings.map((h) => cell(byHeading[h])).join(","));
   }
 

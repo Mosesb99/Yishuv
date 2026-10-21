@@ -115,7 +115,10 @@
 
   // Sign-up form: posts to /api/join (functions/api/join.js), which saves it to the Google Sheet
   function submit(form) {
-    return fetch(form.action, { method: "POST", body: new FormData(form) }).then(function (res) {
+    var data = new FormData(form);
+    // how long the form has been open, measured on this device (its clock may be off; the gap isn't)
+    data.set("e", String(Date.now() - (+form.elements.t.value || Date.now())));
+    return fetch(form.action, { method: "POST", body: data }).then(function (res) {
       return res.json().catch(function () { return {}; }).then(function (body) {
         if (!res.ok || !body.ok) throw new Error(res.status);
       });
@@ -126,7 +129,7 @@
     var status = form.querySelector(".form-status");
     var button = form.querySelector("button[type=submit]");
     var stamp = function () { if (form.elements.t) form.elements.t.value = Date.now(); };
-    stamp(); // when the form was shown; the server ignores forms sent back within seconds (bots)
+    stamp(); // when the form was shown; forms sent back within seconds are flagged as likely bots
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
