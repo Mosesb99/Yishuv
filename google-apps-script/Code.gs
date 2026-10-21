@@ -155,3 +155,9 @@ function notify_(fields) {
 function json_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
 }
+
+// Run once from the Apps Script editor (Run ▶ authorizeEmail) to grant the email permission
+// and send a test message.
+function authorizeEmail() {
+  MailApp.sendEmail(NOTIFY_EMAIL, "Yishuv website: email alerts are on", "Test from the sign-up sheet script. New website sign-ups will be emailed to this address.");
+}
