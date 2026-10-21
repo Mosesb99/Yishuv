@@ -5,55 +5,35 @@ mailing list.
 
 | Part | Tool | Cost |
 | --- | --- | --- |
-| Hosting | Netlify (builds the site from this GitHub repo) | Free |
-| Admin editor | Decap CMS at `/admin` (log in with GitHub) | Free |
-| Sign-ups | Netlify Forms (emailed to you; up to 100 a month free) | Free |
-| Mailing list | MailerLite (every sign-up is added automatically) | Free up to 1,000 |
-| Email `info@yishuvchasidi.com` | Cloudflare Email Routing → forwards to Gmail | Free |
-| Domain | Cloudflare Registrar | ~$11/year |
+| Hosting | Cloudflare Pages (builds the site from this GitHub repo on every push) | Free, 500 builds/month |
+| Sign-up form + live counters | Cloudflare Pages Functions in `functions/api/` | Free |
+| Sign-ups list + email alerts | Google Sheet "Yishuv Family Signup" + its Apps Script (`google-apps-script/Code.gs`) | Free |
+| Admin editor | Decap CMS at `/admin` (GitHub login, via the GitHub OAuth app on the old Netlify project) | Free |
+| Mailing list | MailerLite (optional; every sign-up is added once the key is set) | Free up to 1,000 |
+| Domain + email forwarding | Cloudflare | ~$11/year |
 
 ## How it fits together
 
-- **All text, numbers and images** live in `_data/site.json`. Don't edit it by hand; use the editor
-  at `yishuvchasidi.com/admin`.
-- `index.njk` is the page layout; `styles.css` is the design; `script.js` handles the menu, animations,
-  garin squares and form.
-- When you click **Publish** in the editor, it saves to GitHub, and Netlify rebuilds the site in about
-  a minute.
-- `netlify/functions/submission-created.js` adds each sign-up to MailerLite.
+- **All text, numbers and images** live in `_data/site.json`. Edit them in the editor at
+  `yishuvchasidi.com/admin`; publishing saves to GitHub and Cloudflare rebuilds in about a minute.
+- `index.njk` is the page layout, `styles.css` the design, and `script.js` the menu, animations,
+  counters and form.
+- `functions/api/join.js` receives the sign-up form and adds it to the sheet's "Website sign-ups" tab
+  (the sheet script then emails yishuvproject@gmail.com). Spam protection: hidden honeypot field plus
+  a minimum fill time.
+- `functions/api/counts.js` serves the live totals (main list + new website sign-ups, without
+  duplicates) to the counters, cached for 5 minutes.
 
-## Launch checklist (one time)
+## Cloudflare Pages settings
 
-1. **Buy the domain** at <https://dash.cloudflare.com> → Domain Registration → Register
-   `yishuvchasidi.com` (consider `yishuvchassidi.com` too and redirect it).
-2. **Netlify:** sign up at <https://app.netlify.com> with GitHub → *Add new project* → *Import from
-   Git* → `Mosesb99/Yishuv`, branch `claude/community-recruitment-site-t98qrh`. Build settings are
-   picked up from `netlify.toml`.
-3. **Connect the domain:** Netlify → *Domain management* → *Add domain* `yishuvchasidi.com`. Add the
-   DNS records Netlify shows in Cloudflare → DNS (set them to "DNS only", grey cloud).
-4. **Admin login:**
-   - GitHub → Settings → Developer settings → OAuth Apps → *New*. Homepage
-     `https://yishuvchasidi.com`, callback URL `https://api.netlify.com/auth/done`. Copy the Client
-     ID and generate a secret.
-   - Netlify → *Project configuration* → *Access & security* → *OAuth* → *Install provider* → GitHub,
-     and paste both.
-   - Log in at `https://yishuvchasidi.com/admin`.
-5. **Sign-ups:** Netlify → *Forms* → enable form detection, then redeploy. Under *Form notifications*,
-   add an email notification to `info@yishuvchasidi.com` (or Gmail).
-6. **Mailing list:** create a free MailerLite account → *Integrations* → *API* → generate a token. In
-   *Subscribers* → *Groups*, create "Yishuv sign-ups" and copy its ID. In Netlify → *Environment
-   variables*, add `MAILERLITE_API_KEY` and `MAILERLITE_GROUP_ID`, then redeploy.
-7. **Email on the domain:** Cloudflare → `yishuvchasidi.com` → *Email* → *Email Routing* → create
-   `info@yishuvchasidi.com` → forward to `yishuvproject@gmail.com`. To also *send* as that address
-   from Gmail, open Gmail → Settings → *Accounts* → *Send mail as* → add it, with SMTP server
-   `smtp.gmail.com`, port 587, your Gmail address, and a Google *app password* (this needs 2-step
-   verification turned on).
-8. In the editor, change the contact email to the new address.
+Build command `npm run build`, output directory `_site`, production branch
+`claude/community-recruitment-site-t98qrh`. Variables and secrets: `SHEET_WEBHOOK_URL`,
+`SHEET_WEBHOOK_SECRET`, and optionally `MAILERLITE_API_KEY`, `MAILERLITE_GROUP_ID`.
 
 ## Preview on your computer
 
 ```sh
 npm install
-npm start                 # site at http://localhost:8080
-npx decap-server          # in a second window: lets /admin edit local files
+npm run build && npx wrangler pages dev _site   # site + functions at http://localhost:8788
+npx decap-server                                # in a second window: lets /admin edit local files
 ```

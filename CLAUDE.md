@@ -5,39 +5,37 @@ This file carries over the conversation so far, so any new Claude session picks 
 ## What this is
 
 A recruitment website for a new **heimishe Chassidishe moshav in Binyamin** (Yehudah V'Shomron),
-built by and for American Chassidish families. Domain: **yishuvchasidi.com** (owner buying it).
+built by and for American Chassidish families. Domain: **yishuvchasidi.com** (registered at Cloudflare).
 
 Stack (decided Oct 2026, owner wants every word editable via one admin login):
 - Eleventy 3 builds `index.njk` from `_data/site.json` (ALL copy, numbers and image paths live there;
   `**bold**` is allowed via the `md` filter). Output `_site/`.
-- Decap CMS at `/admin` (`admin/config.yml`, GitHub backend, Netlify GitHub OAuth). Every key in
-  site.json must have a matching field in config.yml, or a save could drop it. Keep them in sync.
-- Netlify hosting + Netlify Forms (form `join`); `netlify/functions/submission-created.js` pushes
-  every sign-up to MailerLite (env `MAILERLITE_API_KEY`, `MAILERLITE_GROUP_ID`). Everyone who signs
-  up joins the list (the form shows a notice).
+- Decap CMS at `/admin` (`admin/config.yml`, GitHub backend). Login uses the GitHub OAuth provider
+  installed on the old Netlify project (`base_url: https://api.netlify.com`,
+  `site_domain: yishuvchasidi.netlify.app`), so keep that Netlify project. Every key in site.json must
+  have a matching field in config.yml, or a save could drop it. Keep them in sync.
+- **Hosting moved to Cloudflare Pages (2026-10-21)** because Netlify's free plan (300 credits, 15
+  per deploy) ran out. Cloudflare builds from GitHub on push (`npm run build` → `_site`, Node from
+  `.node-version`). Pages Functions: `functions/api/join.js` (sign-up form: honeypot + 3-second
+  minimum fill time, then POST to the sheet script and optional MailerLite) and
+  `functions/api/counts.js` (live totals, 5-min edge cache). Cloudflare variables: SHEET_WEBHOOK_URL,
+  SHEET_WEBHOOK_SECRET (+ optional MAILERLITE_API_KEY, MAILERLITE_GROUP_ID).
+- Old Netlify project **yishuvchasidi** (id fb5aca35-a86f-4dd1-aff7-a3e6197ce4ed, team mmm790793) is
+  kept only for the admin login. The owner's other Netlify project `legendary-fudge-7ce8c4` is an
+  unrelated cleaning-business site. Never touch it.
 - Email: Cloudflare Email Routing `info@` → yishuvproject@gmail.com, plus Gmail "send as".
 - Site stays English with Yiddish/Hebrew accents (no full translation planned).
-- `README.md` has the owner's launch checklist.
-- Netlify project **yishuvchasidi** (id fb5aca35-a86f-4dd1-aff7-a3e6197ce4ed, team mmm790793) —
-  https://yishuvchasidi.netlify.app. Form detection on; sign-up emails → yishuvproject@gmail.com;
-  custom domain yishuvchasidi.com + www set. The owner's other Netlify project
-  `legendary-fudge-7ce8c4` is an unrelated cleaning-business site. Never touch it.
 - The owner edits through /admin, which commits "Update site content" to GitHub. Always `git pull`
   before editing `_data/site.json`. An admin tab opened before a code push can save stale content
   over it (happened 2026-10-16: it dropped `counters`, which was restored in b2af9b1).
 - Google Sheet "Yishuv Family Signup" (id 1qQAnCnK7M3fJkCEK8Lf_JvRwfAXWlZCJ5Ab5rpXLUIQ; owner
   Lebovits, editor yishuvproject@gmail.com; Claude's Drive connector = smestatesusa@gmail.com, viewer).
-  Bound Apps Script web app (source: `google-apps-script/Code.gs`, deployed copy has the real secret)
-  — GET returns totals from tab "רישום משפחות" (rows, col H country, col L children); POST appends
-  to tab "Website sign-ups". Netlify env: SHEET_WEBHOOK_URL, SHEET_WEBHOOK_SECRET. `/api/counts`
-  (netlify/functions/counts.mjs, 5-min CDN cache) feeds the counters; admin numbers are the fallback.
-  Website sign-ups are NOT counted until the team moves them into the main tab.
-- Netlify is on the credit-based **Free** plan: 300 credits/month, 15 per production deploy (≈20
-  deploys/month; period resets on the 3rd). Credits ran out on 2026-10-21 and deploys are skipped
-  until 2026-11-03. Batch changes into few pushes, and never trigger a manual build when the
-  GitHub webhook is just slow (it can take ~10 min); both builds get charged.
-  At that point the live page still pins the children counter to 213 (`source: manual`); the
-  repo already has it back on `source: children` (commit c7a78ce), so it goes live with the next deploy.
+  Bound Apps Script web app (source `google-apps-script/Code.gs`; the deployed copy has the real
+  secret). The owner pastes updates and deploys them via Manage deployments → New version.
+  GET returns totals from tab "רישום משפחות" (col H country, col L children) **plus** rows in
+  "Website sign-ups" whose email/phone isn't already known (test rows skipped). POST appends to
+  "Website sign-ups" by column heading (adds missing columns) and emails NOTIFY_EMAIL.
+  Counter backup numbers in site.json are used only if the sheet can't be reached.
 - Domain registered at Cloudflare (nameservers quentin/vera.ns.cloudflare.com).
 
 ## Source of truth: the brochure

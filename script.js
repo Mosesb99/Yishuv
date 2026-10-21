@@ -112,18 +112,20 @@
     Array.prototype.forEach.call(revealEls, function (el) { el.classList.add("in"); });
   }
 
-  // Sign-up form: Netlify Forms (posts URL-encoded data to the site root)
-  function submit(data) {
-    return fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(data).toString()
+  // Sign-up form: posts to /api/join (functions/api/join.js), which saves it to the Google Sheet
+  function submit(form) {
+    return fetch(form.action, { method: "POST", body: new FormData(form) }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (body) {
+        if (!res.ok || !body.ok) throw new Error(res.status);
+      });
     });
   }
 
   Array.prototype.forEach.call(document.querySelectorAll("form.form"), function (form) {
     var status = form.querySelector(".form-status");
     var button = form.querySelector("button[type=submit]");
+    var stamp = function () { if (form.elements.t) form.elements.t.value = Date.now(); };
+    stamp(); // when the form was shown; the server ignores forms sent back within seconds (bots)
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -141,10 +143,10 @@
       button.disabled = true;
       status.textContent = "Sending…";
 
-      submit(new FormData(form))
-        .then(function (res) {
-          if (!res.ok) throw new Error(res.status);
+      submit(form)
+        .then(function () {
           form.reset();
+          stamp();
           form.classList.remove("show-errors");
           status.textContent = form.dataset.success;
           status.classList.add("success");

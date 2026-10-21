@@ -298,9 +298,9 @@ permalink: /index.html
             </div>
           </div>
 
-          <form class="form reveal" name="join" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate
+          <form class="form reveal" name="join" method="POST" action="/api/join" novalidate
                 data-success="{{ f.success }}" data-error="{{ f.error }}">
-            <input type="hidden" name="form-name" value="join">
+            <input type="hidden" name="t">
             <p class="hidden-field"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
             <h3>{{ f.title }}</h3>
 

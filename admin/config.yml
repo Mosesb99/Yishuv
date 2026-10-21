@@ -2,6 +2,10 @@
 backend:
   name: github
   repo: Mosesb99/Yishuv
+  # Login goes through the GitHub OAuth app installed on the (old) Netlify project, which is kept
+  # just for this; the site itself is hosted on Cloudflare Pages.
+  base_url: https://api.netlify.com
+  site_domain: yishuvchasidi.netlify.app
   branch: claude/community-recruitment-site-t98qrh
   commit_messages:
     update: "Update site content"

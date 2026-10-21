@@ -6,11 +6,13 @@
  * GET  → totals only (no names or contact details), for the counters on the site.
  *        Counts the main list plus website sign-ups, skipping sign-ups whose email or phone
  *        is already in the main list (or earlier in the sign-ups tab), and test rows.
- * POST → appends a website sign-up to the "Website sign-ups" tab (needs the secret).
+ * POST → appends a website sign-up to the "Website sign-ups" tab (needs the secret)
+ *        and emails NOTIFY_EMAIL the details.
  */
 const SECRET = "PASTE_SECRET_HERE";         // must match SHEET_WEBHOOK_SECRET on Netlify
 const FAMILIES_TAB = "רישום משפחות";
 const SIGNUPS_TAB = "Website sign-ups";
+const NOTIFY_EMAIL = "yishuvproject@gmail.com";   // who gets an email for each website sign-up
 const PHONE_COL = 10;                        // J: טלפון / וואטסאפ
 const EMAIL_COL = 11;                        // K: דוא״ל
 const COUNTRY_COL = 8;                       // H: מדינת מגורים
@@ -122,9 +124,34 @@ function doPost(e) {
     (body.fields || []).forEach(function (pair) { row[column(pair[0])] = pair[1] == null ? "" : pair[1]; });
     for (let i = 0; i < headers.length; i++) if (row[i] === undefined) row[i] = "";
     sheet.appendRow(row);
+    notify_(body.fields || []);
     return json_({ ok: true });
   } finally {
     lock.releaseLock();
+  }
+}
+
+// Email the sign-up details (skipped quietly if Gmail refuses, so the row is still saved)
+function notify_(fields) {
+  try {
+    const value = function (name) {
+      const pair = fields.filter(function (p) { return p[0] === name; })[0];
+      return pair ? String(pair[1]).replace(/^'/, "") : "";
+    };
+    const lines = fields
+      .filter(function (p) { return String(p[1]).trim() !== ""; })
+      .map(function (p) { return p[0] + ": " + String(p[1]).replace(/^'/, ""); });
+    MailApp.sendEmail({
+      to: NOTIFY_EMAIL,
+      replyTo: value("Email") || NOTIFY_EMAIL,
+      subject: "New website sign-up: " + (value("Name") || value("Family name") || "family"),
+      body: lines.join("
+") + "
+
+Saved in the \"" + SIGNUPS_TAB + "\" tab: " + SpreadsheetApp.getActive().getUrl()
+    });
+  } catch (err) {
+    console.error(err);
   }
 }
 
