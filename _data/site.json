@@ -71,14 +71,7 @@
     "girls_ages": "Girls’ ages",
     "ages_placeholder": "e.g. 9, 6, 2",
     "section_plans": "Your plans",
-    "situation": "Where you are now",
     "situation_placeholder": "Choose one…",
-    "situation_options": [
-      "Working or kollel family in Eretz Yisroel",
-      "Living in Yerushalayim",
-      "In America, ready to make aliyah",
-      "Other"
-    ],
     "stage": "How would you like to join?",
     "stage_options": [
       "In the garin, as a founder",

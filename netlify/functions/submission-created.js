@@ -31,7 +31,6 @@ async function addToSheet(payload) {
     ["Email", d.email],
     ["Phone / WhatsApp", d.phone],
     ["Children", children],
-    ["Where they live now", d.situation],
     ["How they'd like to join", d.stage],
     ["Message", d.message],
     ["Family name", d.family_name],
@@ -54,17 +53,11 @@ async function addToSheet(payload) {
     ["Share with Amana?", d.amana ? "Yes" : "No"]
   ].map(([heading, value]) => [heading, asText(value)]);
 
-  // `data` keeps the older sheet script working until it's updated to read `fields`.
-  const data = {
-    name: asText(name.trim()), email: asText(d.email), phone: asText(d.phone), children,
-    situation: asText(d.situation), stage: asText(d.stage), message: asText(d.message)
-  };
-
   const res = await fetch(url, {
     method: "POST",
     redirect: "follow",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ secret, id: payload.id, fields, data })
+    body: JSON.stringify({ secret, id: payload.id, fields })
   });
   const text = await res.text();
   if (!res.ok || !text.includes('"ok":true')) throw new Error(`sheet ${res.status}: ${text.slice(0, 200)}`);

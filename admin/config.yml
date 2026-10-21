@@ -320,9 +320,7 @@ collections:
               - { label: "Girls' ages label", name: girls_ages, widget: string }
               - { label: "Ages example text", name: ages_placeholder, widget: string }
               - { label: "Section heading: plans", name: section_plans, widget: string }
-              - { label: "'Where you are now' label", name: situation, widget: string }
-              - { label: "'Choose one' text", name: situation_placeholder, widget: string }
-              - { label: "'Where you are now' options", name: situation_options, widget: list, field: { label: Option, name: option, widget: string } }
+              - { label: "'Choose one' text (dropdowns)", name: situation_placeholder, widget: string }
               - { label: "'How would you like to join' label", name: stage, widget: string }
               - { label: "'How would you like to join' options", name: stage_options, widget: list, field: { label: Option, name: option, widget: string } }
               - { label: "Interest label", name: interest, widget: string }

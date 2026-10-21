@@ -345,14 +345,6 @@ permalink: /index.html
             </div>
 
             <p class="form-section">{{ f.section_plans }}</p>
-            <label>{{ f.situation }}
-              <select name="situation" required>
-                <option value="">{{ f.situation_placeholder }}</option>
-                {%- for opt in f.situation_options %}
-                <option>{{ opt }}</option>
-                {%- endfor %}
-              </select>
-            </label>
             <fieldset>
               <legend>{{ f.stage }}</legend>
               {%- for opt in f.stage_options %}
