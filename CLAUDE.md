@@ -32,6 +32,12 @@ Stack (decided Oct 2026, owner wants every word editable via one admin login):
   to tab "Website sign-ups". Netlify env: SHEET_WEBHOOK_URL, SHEET_WEBHOOK_SECRET. `/api/counts`
   (netlify/functions/counts.mjs, 5-min CDN cache) feeds the counters; admin numbers are the fallback.
   Website sign-ups are NOT counted until the team moves them into the main tab.
+- Netlify is on the credit-based **Free** plan: 300 credits/month, 15 per production deploy (≈20
+  deploys/month; period resets on the 3rd). Credits ran out on 2026-10-21 and deploys are skipped
+  until 2026-11-03. Batch changes into few pushes, and never trigger a manual build when the
+  GitHub webhook is just slow (it can take ~10 min); both builds get charged.
+  At that point the live page still pins the children counter to 213 (`source: manual`); the
+  repo already has it back on `source: children` (commit c7a78ce), so it goes live with the next deploy.
 - Domain registered at Cloudflare (nameservers quentin/vera.ns.cloudflare.com).
 
 ## Source of truth: the brochure
