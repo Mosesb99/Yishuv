@@ -43,30 +43,76 @@
     "cta": "Join the garin"
   },
   "form": {
-    "success": "Thank you! We’ll be in touch with you soon, b’ezras Hashem.",
-    "message": "Anything you’d like us to know",
-    "error": "Sorry, something went wrong. Please email or WhatsApp us directly.",
-    "name": "Name",
-    "phone": "Phone / WhatsApp",
-    "situation_placeholder": "Choose one…",
-    "button": "Send",
     "title": "Tell us about your family",
-    "consent": "By sending this form you’ll join our mailing list for updates. You can unsubscribe at any time.",
+    "section_family": "Your family",
+    "family_name": "Family name",
+    "husband_name": "Husband’s first name",
+    "husband_age": "Age",
+    "husband_occupation": "Husband’s occupation",
+    "wife_name": "Wife’s first name",
+    "wife_age": "Age",
+    "wife_occupation": "Wife’s occupation",
+    "section_contact": "Where you live and how to reach you",
+    "country": "Country you live in now",
+    "country_options": [
+      "Eretz Yisroel",
+      "USA",
+      "Canada",
+      "England",
+      "Other"
+    ],
+    "city": "City",
+    "phone": "Phone / WhatsApp",
     "email": "Email",
+    "section_children": "Children",
+    "boys": "Boys",
+    "boys_ages": "Boys’ ages",
+    "girls": "Girls",
+    "girls_ages": "Girls’ ages",
+    "ages_placeholder": "e.g. 9, 6, 2",
+    "section_plans": "Your plans",
+    "situation": "Where you are now",
+    "situation_placeholder": "Choose one…",
     "situation_options": [
       "Working or kollel family in Eretz Yisroel",
       "Living in Yerushalayim",
       "In America, ready to make aliyah",
       "Other"
     ],
+    "stage": "How would you like to join?",
     "stage_options": [
       "In the garin, as a founder",
       "In Stage B, in a caravilla",
       "Later on — keep me posted"
     ],
-    "situation": "Where you are now",
-    "stage": "How would you like to join?",
-    "children": "Number of children"
+    "interest": "How interested are you?",
+    "interest_options": [
+      "Ready to join now",
+      "Very interested",
+      "Interested",
+      "Just exploring"
+    ],
+    "timeframe": "When could you move?",
+    "timeframe_options": [
+      "As soon as possible",
+      "Within a year",
+      "In 1–2 years",
+      "In 2+ years",
+      "Not sure yet"
+    ],
+    "temp_housing": "Interested in temporary housing (a caravilla) at the start?",
+    "temp_housing_options": [
+      "Yes",
+      "No",
+      "Not sure"
+    ],
+    "help": "Can you help with organizing? (optional)",
+    "message": "Anything else you’d like us to know (optional)",
+    "amana": "We agree to share our details with Amana, the organization that builds new yishuvim",
+    "button": "Send",
+    "consent": "By sending this form you’ll join our mailing list for updates. You can unsubscribe at any time.",
+    "success": "Thank you! We’ll be in touch with you soon, b’ezras Hashem.",
+    "error": "Sorry, something went wrong. Please email or WhatsApp us directly."
   },
   "meta": {
     "title": "Yishuv · A Chassidishe Moshav in Binyamin",

@@ -38,22 +38,44 @@ function doGet() {
   return json_(counts);
 }
 
+// body.fields is a list of [column heading, value]. Missing headings are added at the end,
+// so new form questions get their own column without changing this script.
 function doPost(e) {
   const body = JSON.parse(e.postData.contents || "{}");
   if (body.secret !== SECRET) return json_({ ok: false, error: "forbidden" });
 
-  const d = body.data || {};
-  const sheet = SpreadsheetApp.getActive().getSheetByName(SIGNUPS_TAB);
-  const id = String(body.id || "");
-  if (id && sheet.getLastRow() > 1) {
-    const ids = sheet.getRange(2, 9, sheet.getLastRow() - 1, 1).getValues().flat().map(String);
-    if (ids.indexOf(id) !== -1) return json_({ ok: true, duplicate: true });
+  const lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    const sheet = SpreadsheetApp.getActive().getSheetByName(SIGNUPS_TAB);
+    const headers = sheet.getRange(1, 1, 1, Math.max(sheet.getLastColumn(), 1)).getValues()[0].map(String);
+    const column = function (heading) {
+      let i = headers.indexOf(heading);
+      if (i === -1) {
+        i = headers.filter(String).length;
+        headers[i] = heading;
+        sheet.getRange(1, i + 1).setValue(heading);
+      }
+      return i;
+    };
+
+    const id = String(body.id || "");
+    const idCol = column("Netlify ID");
+    if (id && sheet.getLastRow() > 1) {
+      const ids = sheet.getRange(2, idCol + 1, sheet.getLastRow() - 1, 1).getValues().flat().map(String);
+      if (ids.indexOf(id) !== -1) return json_({ ok: true, duplicate: true });
+    }
+
+    const row = [];
+    row[column("Received")] = new Date();
+    row[idCol] = id;
+    (body.fields || []).forEach(function (pair) { row[column(pair[0])] = pair[1] == null ? "" : pair[1]; });
+    for (let i = 0; i < headers.length; i++) if (row[i] === undefined) row[i] = "";
+    sheet.appendRow(row);
+    return json_({ ok: true });
+  } finally {
+    lock.releaseLock();
   }
-  sheet.appendRow([
-    new Date(), d.name || "", d.email || "", d.phone || "", d.children || "",
-    d.situation || "", d.stage || "", d.message || "", id
-  ]);
-  return json_({ ok: true });
 }
 
 function json_(obj) {

@@ -19,14 +19,52 @@ async function addToSheet(payload) {
   const secret = process.env.SHEET_WEBHOOK_SECRET;
   if (!url || !secret) return "sheet not configured";
 
-  const data = {};
-  for (const [key, value] of Object.entries(payload.data || {})) data[key] = asText(value);
+  const d = payload.data || {};
+  const boys = parseInt(d.boys, 10) || 0;
+  const girls = parseInt(d.girls, 10) || 0;
+  const children = d.boys || d.girls ? String(boys + girls) : "";
+  const name = [d.husband_name, d.wife_name].filter(Boolean).join(" & ") + (d.family_name ? " " + d.family_name : "");
+
+  // Column heading → value. The sheet script adds any heading that's missing.
+  const fields = [
+    ["Name", name.trim()],
+    ["Email", d.email],
+    ["Phone / WhatsApp", d.phone],
+    ["Children", children],
+    ["Where they live now", d.situation],
+    ["How they'd like to join", d.stage],
+    ["Message", d.message],
+    ["Family name", d.family_name],
+    ["Husband's first name", d.husband_name],
+    ["Husband's age", d.husband_age],
+    ["Husband's occupation", d.husband_occupation],
+    ["Wife's first name", d.wife_name],
+    ["Wife's age", d.wife_age],
+    ["Wife's occupation", d.wife_occupation],
+    ["Country", d.country],
+    ["City", d.city],
+    ["Boys", d.boys],
+    ["Boys' ages", d.boys_ages],
+    ["Girls", d.girls],
+    ["Girls' ages", d.girls_ages],
+    ["Interest level", d.interest],
+    ["Move timeframe", d.timeframe],
+    ["Temporary housing?", d.temp_housing],
+    ["Help with organizing", d.help],
+    ["Share with Amana?", d.amana ? "Yes" : "No"]
+  ].map(([heading, value]) => [heading, asText(value)]);
+
+  // `data` keeps the older sheet script working until it's updated to read `fields`.
+  const data = {
+    name: asText(name.trim()), email: asText(d.email), phone: asText(d.phone), children,
+    situation: asText(d.situation), stage: asText(d.stage), message: asText(d.message)
+  };
 
   const res = await fetch(url, {
     method: "POST",
     redirect: "follow",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ secret, id: payload.id, data })
+    body: JSON.stringify({ secret, id: payload.id, fields, data })
   });
   const text = await res.text();
   if (!res.ok || !text.includes('"ok":true')) throw new Error(`sheet ${res.status}: ${text.slice(0, 200)}`);
@@ -47,7 +85,11 @@ async function addToMailingList(data) {
     },
     body: JSON.stringify({
       email: data.email,
-      fields: { name: data.name || "", phone: data.phone || "" },
+      fields: {
+        name: [data.husband_name, data.wife_name].filter(Boolean).join(" & ") || data.name || "",
+        last_name: data.family_name || "",
+        phone: data.phone || ""
+      },
       groups: groupId ? [groupId] : []
     })
   });

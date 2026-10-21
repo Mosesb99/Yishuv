@@ -299,16 +299,41 @@ collections:
             widget: object
             fields:
               - { label: "Form heading", name: title, widget: string }
-              - { label: "Name label", name: name, widget: string }
-              - { label: "Email label", name: email, widget: string }
+              - { label: "Section heading: family", name: section_family, widget: string }
+              - { label: "Family name", name: family_name, widget: string }
+              - { label: "Husband's first name", name: husband_name, widget: string }
+              - { label: "Husband's age", name: husband_age, widget: string }
+              - { label: "Husband's occupation", name: husband_occupation, widget: string }
+              - { label: "Wife's first name", name: wife_name, widget: string }
+              - { label: "Wife's age", name: wife_age, widget: string }
+              - { label: "Wife's occupation", name: wife_occupation, widget: string }
+              - { label: "Section heading: contact", name: section_contact, widget: string }
+              - { label: "Country label", name: country, widget: string }
+              - { label: "Country options", name: country_options, widget: list, field: { label: Option, name: option, widget: string } }
+              - { label: "City label", name: city, widget: string }
               - { label: "Phone label", name: phone, widget: string }
-              - { label: "Children label", name: children, widget: string }
+              - { label: "Email label", name: email, widget: string }
+              - { label: "Section heading: children", name: section_children, widget: string }
+              - { label: "Number of boys label", name: boys, widget: string }
+              - { label: "Boys' ages label", name: boys_ages, widget: string }
+              - { label: "Number of girls label", name: girls, widget: string }
+              - { label: "Girls' ages label", name: girls_ages, widget: string }
+              - { label: "Ages example text", name: ages_placeholder, widget: string }
+              - { label: "Section heading: plans", name: section_plans, widget: string }
               - { label: "'Where you are now' label", name: situation, widget: string }
               - { label: "'Choose one' text", name: situation_placeholder, widget: string }
               - { label: "'Where you are now' options", name: situation_options, widget: list, field: { label: Option, name: option, widget: string } }
               - { label: "'How would you like to join' label", name: stage, widget: string }
               - { label: "'How would you like to join' options", name: stage_options, widget: list, field: { label: Option, name: option, widget: string } }
+              - { label: "Interest label", name: interest, widget: string }
+              - { label: "Interest options", name: interest_options, widget: list, field: { label: Option, name: option, widget: string } }
+              - { label: "Move timeframe label", name: timeframe, widget: string }
+              - { label: "Move timeframe options", name: timeframe_options, widget: list, field: { label: Option, name: option, widget: string } }
+              - { label: "Temporary housing question", name: temp_housing, widget: string }
+              - { label: "Temporary housing options", name: temp_housing_options, widget: list, field: { label: Option, name: option, widget: string } }
+              - { label: "Help with organizing label", name: help, widget: string }
               - { label: "Message label", name: message, widget: string }
+              - { label: "Amana consent checkbox text", name: amana, widget: text }
               - { label: "Button text", name: button, widget: string }
               - { label: "Mailing-list notice", name: consent, widget: text }
               - { label: "Thank-you message", name: success, widget: string }

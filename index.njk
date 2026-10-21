@@ -303,14 +303,48 @@ permalink: /index.html
             <input type="hidden" name="form-name" value="join">
             <p class="hidden-field"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
             <h3>{{ f.title }}</h3>
+
+            <p class="form-section">{{ f.section_family }}</p>
+            <label>{{ f.family_name }}<input type="text" name="family_name" autocomplete="family-name" required></label>
+            <div class="row row-age">
+              <label>{{ f.husband_name }}<input type="text" name="husband_name"></label>
+              <label>{{ f.husband_age }}<input type="number" name="husband_age" min="16" max="99" inputmode="numeric"></label>
+            </div>
+            <label>{{ f.husband_occupation }}<input type="text" name="husband_occupation"></label>
+            <div class="row row-age">
+              <label>{{ f.wife_name }}<input type="text" name="wife_name"></label>
+              <label>{{ f.wife_age }}<input type="number" name="wife_age" min="16" max="99" inputmode="numeric"></label>
+            </div>
+            <label>{{ f.wife_occupation }}<input type="text" name="wife_occupation"></label>
+
+            <p class="form-section">{{ f.section_contact }}</p>
             <div class="row">
-              <label>{{ f.name }}<input type="text" name="name" autocomplete="name" required></label>
+              <label>{{ f.country }}
+                <select name="country" required>
+                  <option value="">{{ f.situation_placeholder }}</option>
+                  {%- for opt in f.country_options %}
+                  <option>{{ opt }}</option>
+                  {%- endfor %}
+                </select>
+              </label>
+              <label>{{ f.city }}<input type="text" name="city" autocomplete="address-level2"></label>
+            </div>
+            <div class="row">
+              <label>{{ f.phone }}<input type="tel" name="phone" autocomplete="tel" required></label>
               <label>{{ f.email }}<input type="email" name="email" autocomplete="email" required></label>
             </div>
-            <div class="row">
-              <label>{{ f.phone }}<input type="tel" name="phone" autocomplete="tel"></label>
-              <label>{{ f.children }}<input type="number" name="children" min="0" max="25"></label>
+
+            <p class="form-section">{{ f.section_children }}</p>
+            <div class="row row-count">
+              <label>{{ f.boys }}<input type="number" name="boys" min="0" max="20" inputmode="numeric"></label>
+              <label>{{ f.boys_ages }}<input type="text" name="boys_ages" placeholder="{{ f.ages_placeholder }}"></label>
             </div>
+            <div class="row row-count">
+              <label>{{ f.girls }}<input type="number" name="girls" min="0" max="20" inputmode="numeric"></label>
+              <label>{{ f.girls_ages }}<input type="text" name="girls_ages" placeholder="{{ f.ages_placeholder }}"></label>
+            </div>
+
+            <p class="form-section">{{ f.section_plans }}</p>
             <label>{{ f.situation }}
               <select name="situation" required>
                 <option value="">{{ f.situation_placeholder }}</option>
@@ -325,7 +359,35 @@ permalink: /index.html
               <label class="choice"><input type="radio" name="stage" value="{{ opt }}"{% if loop.first %} checked{% endif %}> {{ opt }}</label>
               {%- endfor %}
             </fieldset>
+            <div class="row">
+              <label>{{ f.interest }}
+                <select name="interest">
+                  <option value="">{{ f.situation_placeholder }}</option>
+                  {%- for opt in f.interest_options %}
+                  <option>{{ opt }}</option>
+                  {%- endfor %}
+                </select>
+              </label>
+              <label>{{ f.timeframe }}
+                <select name="timeframe">
+                  <option value="">{{ f.situation_placeholder }}</option>
+                  {%- for opt in f.timeframe_options %}
+                  <option>{{ opt }}</option>
+                  {%- endfor %}
+                </select>
+              </label>
+            </div>
+            <fieldset>
+              <legend>{{ f.temp_housing }}</legend>
+              <div class="choices-inline">
+                {%- for opt in f.temp_housing_options %}
+                <label class="choice"><input type="radio" name="temp_housing" value="{{ opt }}"> {{ opt }}</label>
+                {%- endfor %}
+              </div>
+            </fieldset>
+            <label>{{ f.help }}<input type="text" name="help"></label>
             <label>{{ f.message }}<textarea name="message" rows="3"></textarea></label>
+            <label class="choice consent-check"><input type="checkbox" name="amana" value="Yes"> {{ f.amana }}</label>
             <button class="btn btn-gold" type="submit">{{ f.button }}</button>
             <p class="form-consent">{{ f.consent }}</p>
             <p class="form-status" role="status" aria-live="polite"></p>
