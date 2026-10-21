@@ -43,7 +43,7 @@ function doGet() {
 
   // 1. Main list
   const main = book.getSheetByName(FAMILIES_TAB);
-  const rows = main.getRange(2, 1, Math.max(main.getLastRow() - 1, 0), EMAIL_COL).getDisplayValues();
+  const rows = main.getRange(2, 1, Math.max(main.getLastRow() - 1, 0), CHILDREN_COL).getDisplayValues();
   rows.forEach(function (r) {
     if (!r.some(function (v) { return String(v).trim() !== ""; })) return;   // empty row
     families++;
