@@ -185,7 +185,7 @@
     "eyebrow_yiddish": "שליסט זיך אן",
     "title": "Become a founding family",
     "lede": "Help build up Yehudah V’Shomron — and lay the foundation of a new Chassidish moshav for American families.",
-    "garin_committed": 61,
+    "garin_committed": 74,
     "image": "/assets/img/house-terraces.jpg",
     "email": "yishuvproject@gmail.com",
     "phone_text": "Call or WhatsApp M. Lebovits",
@@ -451,24 +451,24 @@
     "as_of": "As of October 16, 2026",
     "items": [
       {
-        "value": 61,
+        "value": 74,
         "label": "Families registered",
         "source": "families"
       },
       {
-        "value": 31,
+        "value": 39,
         "label": "Already in Eretz Yisroel",
         "source": "israel"
       },
       {
-        "value": 28,
+        "value": 31,
         "label": "In America & abroad",
         "source": "abroad"
       },
       {
-        "value": 213,
+        "value": 217,
         "label": "Children",
-        "source": "manual"
+        "source": "children"
       }
     ]
   },
