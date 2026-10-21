@@ -78,7 +78,7 @@ collections:
             fields:
               - { label: "Eyebrow", name: eyebrow, widget: string }
               - { label: "Heading", name: title, widget: string }
-              - { label: "'As of' date line", name: as_of, widget: string, required: false }
+              - { label: "Word before the date (the date fills in automatically)", name: as_of, widget: string, required: false }
               - label: "Counters"
                 name: items
                 widget: list

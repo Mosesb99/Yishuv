@@ -64,7 +64,7 @@ permalink: /index.html
           <div class="counter"><dt>{{ item.label }}</dt><dd class="count" data-to="{{ item.value }}"{% if item.source and item.source != 'manual' %} data-source="{{ item.source }}"{% endif %}>{{ item.value }}</dd></div>
           {%- endfor %}
         </dl>
-        <p class="counters-asof">{{ x.as_of }}</p>
+        <p class="counters-asof" data-prefix="{{ x.as_of }}">{{ x.as_of }} {{ buildDate | longDate }}</p>
       </div>
     </section>
     {%- endif %}

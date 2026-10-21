@@ -75,7 +75,7 @@
         renderGarin(live.families);
         var asof = document.querySelector(".counters-asof");
         if (asof && live.updated) {
-          asof.textContent = "Updated " + new Date(live.updated).toLocaleDateString("en-US",
+          asof.textContent = (asof.dataset.prefix || "Updated") + " " + new Date(live.updated).toLocaleDateString("en-US",
             { month: "long", day: "numeric", year: "numeric" });
         }
       })
