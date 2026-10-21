@@ -108,12 +108,30 @@ export async function onRequestPost({ request, env, waitUntil }) {
   }
 
   const id = crypto.randomUUID();
+  const received = new Date().toISOString();
+
+  // Every sign-up is also kept in Cloudflare KV (binding SIGNUPS), so nothing is lost if the
+  // Google Sheet can't be reached. Download them all at /api/signups-export?key=<sheet secret>.
+  let sheetError = null;
   try {
     await addToSheet(env, id, d);
   } catch (err) {
     console.error(err);
-    return reply({ ok: false, error: "could not save" }, 502);
+    sheetError = String(err.message || err);
   }
+
+  let stored = false;
+  if (env.SIGNUPS) {
+    try {
+      const record = { id, received, savedToSheet: !sheetError, sheetError, fields: sheetFields(d) };
+      await env.SIGNUPS.put(`signup:${received}:${id}`, JSON.stringify(record));
+      stored = true;
+    } catch (err) {
+      console.error("kv", err);
+    }
+  }
+
+  if (sheetError && !stored) return reply({ ok: false, error: "could not save" }, 502);
   waitUntil(addToMailingList(env, d));
   return reply({ ok: true });
 }
