@@ -4,24 +4,46 @@
  * (Execute as: Me, Who has access: Anyone). Give the /exec URL to the website setup.
  *
  * GET  → totals only (no names or contact details), for the counters on the site.
+ *        Counts the main list plus website sign-ups, skipping sign-ups whose email or phone
+ *        is already in the main list (or earlier in the sign-ups tab), and test rows.
  * POST → appends a website sign-up to the "Website sign-ups" tab (needs the secret).
  */
 const SECRET = "PASTE_SECRET_HERE";         // must match SHEET_WEBHOOK_SECRET on Netlify
 const FAMILIES_TAB = "רישום משפחות";
 const SIGNUPS_TAB = "Website sign-ups";
+const PHONE_COL = 10;                        // J: טלפון / וואטסאפ
+const EMAIL_COL = 11;                        // K: דוא״ל
 const COUNTRY_COL = 8;                       // H: מדינת מגורים
 const CHILDREN_COL = 12;                     // L: מספר ילדים
-const ISRAEL = ["ישראל", "israel", "ארץ ישראל"];
+const ISRAEL = ["ישראל", "israel", "ארץ ישראל", "eretz yisroel"];
+
+// Every email in a cell (cells can hold several, e.g. "a@x.com / b@y.com")
+function emails_(text) {
+  return (String(text).toLowerCase().match(/[^\s\/,;]+@[^\s\/,;]+/g) || []);
+}
+
+// Every phone in a cell, as its last 9 digits, so 054…, +972 54… and 97254… all match
+function phones_(text) {
+  return String(text).split(/[\/\n,;]|וואטסאפ|נוסף|whatsapp/i)
+    .map(function (part) { return part.replace(/\D/g, ""); })
+    .filter(function (digits) { return digits.length >= 7; })
+    .map(function (digits) { return digits.slice(-9); });
+}
 
 function doGet() {
   const cache = CacheService.getScriptCache();
-  const cached = cache.get("counts");
+  const cached = cache.get("counts-v2");
   if (cached) return json_(JSON.parse(cached));
 
-  const sheet = SpreadsheetApp.getActive().getSheetByName(FAMILIES_TAB);
-  const rows = sheet.getRange(2, 1, Math.max(sheet.getLastRow() - 1, 0), CHILDREN_COL).getDisplayValues();
+  const book = SpreadsheetApp.getActive();
   let families = 0, israel = 0, abroad = 0, children = 0;
+  const seen = {};
+  const remember = function (keys) { keys.forEach(function (k) { seen[k] = true; }); };
+  const isKnown = function (keys) { return keys.some(function (k) { return seen[k]; }); };
 
+  // 1. Main list
+  const main = book.getSheetByName(FAMILIES_TAB);
+  const rows = main.getRange(2, 1, Math.max(main.getLastRow() - 1, 0), EMAIL_COL).getDisplayValues();
   rows.forEach(function (r) {
     if (!r.some(function (v) { return String(v).trim() !== ""; })) return;   // empty row
     families++;
@@ -30,11 +52,39 @@ function doGet() {
     else if (country) abroad++;
     const kids = parseInt(String(r[CHILDREN_COL - 1]).trim(), 10);
     if (!isNaN(kids)) children += kids;
+    remember(emails_(r[EMAIL_COL - 1]).concat(phones_(r[PHONE_COL - 1])));
   });
+
+  // 2. Website sign-ups not already in the main list
+  const signups = book.getSheetByName(SIGNUPS_TAB);
+  if (signups && signups.getLastRow() > 1) {
+    const all = signups.getDataRange().getDisplayValues();
+    const head = all[0];
+    const col = function (name) { return head.indexOf(name); };
+    const get = function (r, name) { const i = col(name); return i === -1 ? "" : String(r[i]).trim(); };
+
+    all.slice(1).forEach(function (r) {
+      const label = (get(r, "Name") + " " + get(r, "Family name")).toLowerCase();
+      if (!label.trim() || /please delete|^test\b/.test(label.trim())) return;   // blank or test row
+      const keys = emails_(get(r, "Email")).concat(phones_(get(r, "Phone / WhatsApp")));
+      if (isKnown(keys)) return;                                                   // duplicate
+      remember(keys);
+      families++;
+
+      const country = get(r, "Country").toLowerCase();
+      const where = get(r, "Where they live now").toLowerCase();
+      if (ISRAEL.indexOf(country) !== -1 || (!country && /eretz yisroel|yerushalayim/.test(where))) israel++;
+      else if (country || /america/.test(where)) abroad++;
+
+      let kids = parseInt(get(r, "Children"), 10);
+      if (isNaN(kids)) kids = (parseInt(get(r, "Boys"), 10) || 0) + (parseInt(get(r, "Girls"), 10) || 0);
+      children += kids;
+    });
+  }
 
   const counts = { families: families, israel: israel, abroad: abroad, children: children,
                    updated: new Date().toISOString() };
-  cache.put("counts", JSON.stringify(counts), 300);   // 5 minutes
+  cache.put("counts-v2", JSON.stringify(counts), 300);   // 5 minutes
   return json_(counts);
 }
 
