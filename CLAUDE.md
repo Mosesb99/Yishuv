@@ -38,6 +38,17 @@ Stack (decided Oct 2026, owner wants every word editable via one admin login):
   Counter backup numbers in site.json are used only if the sheet can't be reached.
 - Domain registered at Cloudflare (nameservers quentin/vera.ns.cloudflare.com).
 
+## Design (Impeccable)
+
+- Redesign lives on branch `redesign` (preview: https://redesign.yishuvchasidi.pages.dev) until the
+  owner says "make it live"; then merge into `claude/community-recruitment-site-t98qrh`.
+- Design tool: Impeccable skill (installed globally, telemetry off, no hooks). `PRODUCT.md` holds
+  product truth, `DESIGN.md` + `.impeccable/design.json` hold the visual system, and
+  `.impeccable/surfaces/index-njk.md` holds the direction contract. Owner chose the
+  "category standard" (Serenbe / Kiawah River bar) and a split hero: photo left fading into the text.
+- Run `impeccable detect --json <built page>` after UI changes; it was at 0 findings.
+- Open item: photo quality (hero is a softened AI render; the two real Binyamin photos are flat).
+
 ## Source of truth: the brochure
 
 `Refrence docs/A Heimishe Chassidishe Moshav in Eretz Yisroel for American Families V3.0.pdf`

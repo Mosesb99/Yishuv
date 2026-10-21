@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-21T00:00:00Z",
+  "title": "Design System: Yishuv",
+  "extensions": {
+    "colorMeta": {
+      "white": { "role": "neutral", "displayName": "White", "canonical": "#ffffff", "tonalRamp": ["#262626", "#4d4d4d", "#808080", "#a6a6a6", "#cccccc", "#e6e6e6", "#f5f5f5", "#ffffff"] },
+      "soft-band": { "role": "neutral", "displayName": "Soft Band", "canonical": "#f5f6f4", "tonalRamp": ["#6e6f6e", "#acacab", "#d6d8d5", "#e6e8e5", "#f5f6f4", "#f9faf8", "#fbfbfb", "#fefefe"] },
+      "charcoal-ink": { "role": "neutral", "displayName": "Charcoal Ink", "canonical": "#1f2328", "tonalRamp": ["#0e1012", "#16181c", "#1f2328", "#4c4f53", "#797b7e", "#a5a7a9", "#d2d3d4", "#ededee"] },
+      "slate-text": { "role": "neutral", "displayName": "Slate Text", "canonical": "#4a5058", "tonalRamp": ["#212428", "#34383e", "#4a5058", "#6e7379", "#92969b", "#b7b9bc", "#dbdcde", "#f1f1f2"] },
+      "quiet-grey": { "role": "neutral", "displayName": "Quiet Grey", "canonical": "#5e646c", "tonalRamp": ["#2a2d31", "#42464c", "#5e646c", "#7e8389", "#9ea2a7", "#bfc1c4", "#dfe0e2", "#f2f3f3"] },
+      "hairline": { "role": "neutral", "displayName": "Hairline", "canonical": "#dfe2e0", "tonalRamp": ["#646665", "#9c9e9d", "#c4c8ca", "#dfe2e0", "#e5e8e6", "#eceeec", "#f2f3f3", "#f9f9f9"] },
+      "field-stroke": { "role": "neutral", "displayName": "Field Stroke", "canonical": "#c4c8ca" },
+      "brass": { "role": "primary", "displayName": "Brass", "canonical": "#8b6a35", "tonalRamp": ["#3f3018", "#614a25", "#75592b", "#8b6a35", "#a2885d", "#b9a686", "#d1c3ae", "#e8e1d7"] },
+      "brass-deep": { "role": "primary", "displayName": "Deep Brass", "canonical": "#75592b" },
+      "night": { "role": "neutral", "displayName": "Night", "canonical": "#1f2328" },
+      "on-night": { "role": "neutral", "displayName": "On Night", "canonical": "#f1f2f0" },
+      "on-night-quiet": { "role": "neutral", "displayName": "On Night Quiet", "canonical": "#c6cacd" },
+      "success": { "role": "status", "displayName": "Success", "canonical": "#2f6b3f" },
+      "error": { "role": "status", "displayName": "Error", "canonical": "#a3361f" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The hero headline only." },
+      "headline": { "displayName": "Headline", "purpose": "Section headings, balanced wrapping." },
+      "title": { "displayName": "Title", "purpose": "Item headings in lists, ledger rows and stage points." },
+      "numeral": { "displayName": "Numeral", "purpose": "Live counts, headline prices and other persuasive figures; tabular lining numerals." },
+      "body": { "displayName": "Body", "purpose": "Running text, 44-64ch measure." },
+      "lede": { "displayName": "Lede", "purpose": "One sentence under a section heading, slate, max 46ch." },
+      "label": { "displayName": "Label", "purpose": "Tracked uppercase for buttons, nav links, form legends and stage marks only." },
+      "hebrew": { "displayName": "Hebrew / Yiddish", "purpose": "Frank Ruhl Libre for lang=he / lang=yi lines, including the pasuk statement." }
+    },
+    "shadows": [
+      { "name": "nav-scrolled", "value": "0 1px 0 #dfe2e0", "purpose": "Hairline under the fixed nav once the page has scrolled." },
+      { "name": "mobile-menu", "value": "0 12px 24px -12px rgba(31, 35, 40, .25)", "purpose": "The open mobile dropdown panel only." }
+    ],
+    "motion": [
+      { "name": "ease", "value": "cubic-bezier(.16, 1, .3, 1)", "purpose": "Site easing for every transition." },
+      { "name": "state", "value": "0.2s", "purpose": "Button background, colour and border changes." },
+      { "name": "bar-grow", "value": "width 1.4s", "purpose": "Comparison bars growing in on scroll; disabled under prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "phone-narrow", "value": "520px" },
+      { "name": "phone", "value": "600px" },
+      { "name": "counters", "value": "700px" },
+      { "name": "grids", "value": "760px" },
+      { "name": "tablet", "value": "860px" },
+      { "name": "nav", "value": "900px" }
+    ],
+    "masks": [
+      { "name": "hero-dissolve-desktop", "value": "linear-gradient(90deg, #000 0%, #000 62%, rgba(0,0,0,.55) 82%, transparent 100%)", "purpose": "Hero photo (7fr) fading into the white text column (5fr)." },
+      { "name": "hero-dissolve-phone", "value": "linear-gradient(180deg, #000 0%, #000 68%, rgba(0,0,0,.5) 86%, transparent 100%)", "purpose": "Hero photo on top (36vh) fading down into the page." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Brass solid button for the one primary action: sign up.",
+      "html": "<a class=\"ds-btn ds-btn-solid\" href=\"#\">Become a founding family</a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 0 26px; font: 600 .82rem/1 var(--sans, Assistant, Arial, sans-serif); letter-spacing: .14em; text-transform: uppercase; text-decoration: none; border: 1px solid transparent; border-radius: 0; cursor: pointer; transition: background .2s cubic-bezier(.16,1,.3,1), color .2s cubic-bezier(.16,1,.3,1), border-color .2s cubic-bezier(.16,1,.3,1); } .ds-btn-solid { background: var(--brass, #8b6a35); color: #fff; } .ds-btn-solid:hover { background: var(--brass-2, #75592b); } .ds-btn:focus-visible { outline: 2px solid var(--brass, #8b6a35); outline-offset: 3px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Charcoal outlined secondary action (brochure download).",
+      "html": "<a class=\"ds-btn-line\" href=\"#\">Download the brochure</a>",
+      "css": ".ds-btn-line { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 0 26px; font: 600 .82rem/1 var(--sans, Assistant, Arial, sans-serif); letter-spacing: .14em; text-transform: uppercase; text-decoration: none; background: transparent; color: var(--ink, #1f2328); border: 1px solid var(--ink, #1f2328); border-radius: 0; transition: background .2s cubic-bezier(.16,1,.3,1), color .2s cubic-bezier(.16,1,.3,1); } .ds-btn-line:hover { background: var(--ink, #1f2328); color: #fff; } .ds-btn-line:focus-visible { outline: 2px solid var(--brass, #8b6a35); outline-offset: 3px; }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "nav-cta",
+      "description": "White 72px bar: serif wordmark, grey bsd mark, tracked links, outlined Join that fills brass on hover.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-brand\" href=\"#\">Yishuv</a><span class=\"ds-bsd\" lang=\"he\">בס״ד</span><div class=\"ds-links\"><a href=\"#\">The idea</a><a href=\"#\">Stages</a><a class=\"ds-nav-cta\" href=\"#\">Join</a></div></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 16px; height: 72px; padding: 0 24px; background: rgba(255,255,255,.96); color: #1f2328; box-shadow: 0 1px 0 #dfe2e0; } .ds-brand { font: 400 1.6rem var(--serif, 'Libre Caslon Text', Georgia, serif); text-decoration: none; color: inherit; } .ds-bsd { margin: 0 auto 0 4px; font: .8rem/1 var(--hebrew, 'Frank Ruhl Libre', serif); color: #5e646c; } .ds-links { display: flex; align-items: center; gap: 32px; font: 600 .8rem var(--sans, Assistant, Arial, sans-serif); letter-spacing: .14em; text-transform: uppercase; } .ds-links a { color: inherit; text-decoration: none; } .ds-links a:not(.ds-nav-cta):hover { text-decoration: underline; text-underline-offset: 8px; } .ds-nav-cta { padding: 12px 18px; border: 1px solid currentColor; transition: background .2s, color .2s, border-color .2s; } .ds-nav-cta:hover { background: #8b6a35; border-color: #8b6a35; color: #fff; } .ds-links a:focus-visible { outline: 2px solid #8b6a35; outline-offset: 3px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input-text",
+      "description": "Square white field with label above; brass focus.",
+      "html": "<label class=\"ds-label\">Family name<input class=\"ds-input\" type=\"text\" placeholder=\"Lebovits\"></label>",
+      "css": ".ds-label { display: block; font: 600 .95rem var(--sans, Assistant, Arial, sans-serif); color: #1f2328; max-width: 360px; } .ds-input { display: block; width: 100%; margin-top: 6px; padding: 12px 14px; min-height: 48px; font: 400 1rem var(--sans, Assistant, Arial, sans-serif); color: #1f2328; background: #fff; border: 1px solid #c4c8ca; border-radius: 0; box-sizing: border-box; } .ds-input::placeholder { color: #686d74; } .ds-input:hover { border-color: #9aa0a5; } .ds-input:focus { outline: 2px solid #8b6a35; outline-offset: -1px; border-color: #8b6a35; }"
+    },
+    {
+      "name": "Ruled List",
+      "kind": "custom",
+      "refersTo": "ruled-list",
+      "description": "Signature pattern: hairline rows with a fixed left column (year, numeral, Hebrew letter) in deep brass.",
+      "html": "<ol class=\"ds-ruled\"><li><span class=\"ds-year\">1882</span><p>The first families arrive and work the land.</p></li><li><span class=\"ds-year\">1948</span><p>Every generation built something new.</p></li></ol>",
+      "css": ".ds-ruled { list-style: none; margin: 0; padding: 0; border-top: 1px solid #dfe2e0; font: 400 18px/1.65 var(--sans, Assistant, Arial, sans-serif); color: #1f2328; } .ds-ruled li { display: grid; grid-template-columns: 96px 1fr; gap: 20px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid #dfe2e0; } .ds-year { font-size: 1.45rem; font-weight: 500; color: #75592b; } .ds-ruled p { margin: 0; max-width: 58ch; }"
+    },
+    {
+      "name": "Counter",
+      "kind": "custom",
+      "refersTo": "counter",
+      "description": "Large serif tabular numerals over slate labels, divided by vertical hairlines.",
+      "html": "<dl class=\"ds-counters\"><div><dt>Families signed up</dt><dd>74</dd></div><div><dt>Children</dt><dd>217</dd></div></dl>",
+      "css": ".ds-counters { display: grid; grid-template-columns: repeat(2, minmax(140px, 1fr)); margin: 0; text-align: center; } .ds-counters > div { display: flex; flex-direction: column; padding: 4px 16px; border-left: 1px solid #dfe2e0; } .ds-counters > div:first-child { border-left: 0; } .ds-counters dd { order: -1; margin: 0 0 8px; font: 400 clamp(2.6rem, 5vw, 3.8rem)/1 var(--serif, 'Libre Caslon Text', Georgia, serif); font-variant-numeric: tabular-nums lining-nums; color: #1f2328; } .ds-counters dt { font: .95rem/1.35 var(--sans, Assistant, Arial, sans-serif); color: #4a5058; }"
+    },
+    {
+      "name": "Comparison Bar (night band)",
+      "kind": "custom",
+      "refersTo": "comparison-bar",
+      "description": "Square bars on charcoal comparing founder price with later price, figure in white serif.",
+      "html": "<div class=\"ds-night\"><p class=\"ds-cmp-label\">Founding family</p><div class=\"ds-cmp-track\"><span class=\"ds-cmp-bar ds-founder\" style=\"width:10%\"></span><strong>₪200,000</strong></div><p class=\"ds-cmp-label\">Buying later</p><div class=\"ds-cmp-track\"><span class=\"ds-cmp-bar ds-later\" style=\"width:80%\"></span><strong>₪2,000,000</strong></div></div>",
+      "css": ".ds-night { background: #1f2328; color: #f1f2f0; padding: 32px; font-family: var(--sans, Assistant, Arial, sans-serif); } .ds-cmp-label { margin: 0 0 10px; font-weight: 600; color: #fff; } .ds-cmp-track { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; } .ds-cmp-bar { height: 44px; flex-shrink: 0; transition: width 1.4s cubic-bezier(.16,1,.3,1); } .ds-founder { background: #e4e6e5; min-width: 28px; } .ds-later { background: #4a5058; } .ds-cmp-track strong { font: 400 clamp(1.4rem, 3vw, 2.1rem) var(--serif, 'Libre Caslon Text', Georgia, serif); color: #fff; white-space: nowrap; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Open Hillside",
+    "overview": "The site behaves like a well-made brochure for a planned community at the Serenbe / Kiawah River standard: the landscape leads, the words are few and calm, and the sign-up is always a thumb away. The ground is plain white, the ink is a cool charcoal, and the photographs carry nearly all the colour. A single brass accent marks the primary action and a handful of small signals; everything else is type, hairlines and space.\n\nDensity is low and generous. Sections breathe on 80–128px of vertical padding, content is organised by thin rules rather than boxes, and a rhythm of white, cool off-white bands and one charcoal band paces the long single page. Depth is almost absent: corners are square, there are no cards and no lifted surfaces. Photographs either run full bleed or dissolve softly into the white page through a gradient mask, never ending in a hard frame edge.\n\nThe world explicitly refuses the cream-serif-terracotta \"AI site\" look, green-dominant palettes, and developer pop-ups or promo banners.",
+    "keyCharacteristics": [
+      "White ground, cool off-white bands, one charcoal band; photography supplies colour.",
+      "One brass accent, reserved for the primary action and small marks.",
+      "Libre Caslon Text headlines at regular weight over Assistant text; Frank Ruhl Libre for Hebrew and Yiddish.",
+      "Square corners, hairline rules, no cards, no shadows at rest.",
+      "Photographs dissolve into the page with gradient masks instead of hard edges."
+    ],
+    "rules": [
+      { "name": "The One Brass Rule", "body": "Brass is the only chromatic colour the interface owns. It marks the primary action and small signals; it never fills a band, a heading or a decorative shape.", "section": "colors" },
+      { "name": "The Photographs Carry Colour Rule", "body": "Surfaces stay white, cool off-white or charcoal. Any warmth or green on the page comes from the imagery, not from UI fills.", "section": "colors" },
+      { "name": "The One Night Band Rule", "body": "The page has exactly one dark content section (the numbers), plus the footer. Do not add a second dark band; its rarity is what makes the price comparison land.", "section": "colors" },
+      { "name": "The Regular Weight Rule", "body": "Serif headings are always weight 400. Emphasis comes from size and space, never from bold serif.", "section": "typography" },
+      { "name": "The Figures Are Type Rule", "body": "Numbers that persuade (counts, prices, years) are set in the serif with tabular lining figures, large, on their own line, not in body text.", "section": "typography" },
+      { "name": "The Flat Page Rule", "body": "Nothing on the page is lifted at rest. If a surface needs separation, use a band change or a rule.", "section": "elevation" },
+      { "name": "The Dissolve Rule", "body": "Photographs that sit beside text fade into the page through a gradient mask (horizontal on desktop, vertical on phones) rather than ending in a hard edge.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep surfaces to white, soft band (#f5f6f4) and the single night band; let photographs supply colour.",
+      "Do reserve brass for the primary action, focus states and small marks; use deep brass when brass is set as text.",
+      "Do set headings in Libre Caslon Text at 400 and persuasive figures as large serif tabular numerals.",
+      "Do organise content with hairline rules and a charcoal top rule per group, on square corners.",
+      "Do fade photographs into the page with a gradient mask when they sit beside text.",
+      "Do keep image notes (\"illustrative\") visible on renderings."
+    ],
+    "donts": [
+      "Don't use cream or warm beige grounds, green-dominant palettes, or terracotta accents.",
+      "Don't add pop-ups, promo banners or ad-like call-outs.",
+      "Don't round corners or wrap content in cards or shadowed boxes.",
+      "Don't add a second dark content band.",
+      "Don't use bold serif headings or tracked uppercase outside buttons, nav, form legends and stage marks."
+    ]
+  }
+}
