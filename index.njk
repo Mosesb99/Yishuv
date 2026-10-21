@@ -41,7 +41,7 @@ permalink: /index.html
     {%- set h = s.hero %}
     <section class="hero" id="top">
       <figure class="hero-media">
-        <div class="hero-img" style="--img: url('{{ h.image }}')" role="img" aria-label="Illustrative view of terraced olive groves in the hills"></div>
+        <div class="hero-img" style="--img: url('{{ h.image }}')" role="img" aria-label="Illustrative concept of the moshav: stone homes, a beis medrash and gardens among olive trees"></div>
         {%- if h.image_note %}<figcaption class="img-note">{{ h.image_note }}</figcaption>{% endif %}
       </figure>
       <div class="hero-body">
@@ -228,10 +228,12 @@ permalink: /index.html
 
     {%- set x = s.vision %}
     <section class="vision" id="vision">
+      {%- if x.image %}
       <figure class="vision-figure">
         <img src="{{ x.image }}" alt="Illustrative concept of the moshav: stone homes, a beis medrash and gardens among olive trees" loading="lazy" width="3200" height="898">
         {%- if x.image_caption %}<figcaption class="wrap">{{ x.image_caption }}</figcaption>{% endif %}
       </figure>
+      {%- endif %}
       <div class="wrap vision-text">
         <div class="section-intro">
           <h2>{{ x.title }} {{ x.title_accent }}</h2>

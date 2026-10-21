@@ -289,7 +289,7 @@ collections:
             name: vision
             widget: object
             fields:
-              - { label: "Image", name: image, widget: image }
+              - { label: "Image (optional; leave empty when the same picture is at the top of the page)", name: image, widget: image, required: false }
               - { label: "Image caption", name: image_caption, widget: string, required: false }
               - { label: "Eyebrow", name: eyebrow, widget: string }
               - { label: "Heading", name: title, widget: string }

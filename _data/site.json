@@ -126,7 +126,7 @@
     "ideas_label": "Some of the ideas already on the table",
     "title": "Imagine what we can build",
     "voice_text": "Together we choose what to build, what comes first, and how it’s funded. These are ideas, not promises. Each one is built only if the founders choose it and it’s viable.",
-    "image": "/assets/img/village-concept.jpg",
+    "image": "",
     "ideas": [
       {
         "title": "Torah & Chinuch",
@@ -431,7 +431,7 @@
     "yiddish": "א חסידישער יישוב פאר אמעריקאנער חסידישע משפחות — בני תורה און בעלי בתים",
     "pasuk_en": "“For Your servants cherish her stones, and love her very dust.”",
     "cta_primary": "Become a founding family",
-    "image_note": "Illustrative concept",
+    "image_note": "AI-generated concept · illustrative only",
     "subtitle": "In the hills of Binyamin, half an hour from Yerushalayim. Private homes, gardens, open space, and a kehilla of our own.",
     "title": "A heimishe Chassidishe moshav in Eretz Yisroel for American families",
     "pasuk": "כי רצו עבדיך את אבניה ואת עפרה יחוננו",
@@ -449,7 +449,7 @@
         "label": "financing on a caravilla"
       }
     ],
-    "image": "/assets/img/hills.jpg"
+    "image": "/assets/img/village-concept.jpg"
   },
   "counters": {
     "eyebrow": "The garin so far",

@@ -104,9 +104,9 @@ strong { font-weight: 700; }
 .hero-media { position: relative; margin: 0; }
 .hero-img {
   position: absolute; inset: 0;
-  background: var(--img) 14% center / cover no-repeat;
-  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 62%, rgba(0, 0, 0, .55) 82%, transparent 100%);
-          mask-image: linear-gradient(90deg, #000 0%, #000 62%, rgba(0, 0, 0, .55) 82%, transparent 100%);
+  background: var(--img) 44% center / cover no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 86%, transparent 100%);
+          mask-image: linear-gradient(90deg, #000 0%, #000 86%, transparent 100%);
 }
 .img-note { position: absolute; left: var(--gutter); bottom: 16px; margin: 0; padding: 3px 8px; font-size: .74rem; color: var(--white); background: rgba(20, 22, 24, .62); }
 .hero-body { align-self: center; padding: clamp(40px, 6vh, 80px) var(--gutter) clamp(40px, 6vh, 80px) clamp(8px, 2vw, 24px); max-width: 600px; }
@@ -119,9 +119,9 @@ strong { font-weight: 700; }
   .hero { grid-template-columns: 1fr; min-height: 0; }
   .hero-media { height: 36vh; min-height: 220px; }
   .hero-img {
-    background-position: 18% center;
-    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 68%, rgba(0, 0, 0, .5) 86%, transparent 100%);
-            mask-image: linear-gradient(180deg, #000 0%, #000 68%, rgba(0, 0, 0, .5) 86%, transparent 100%);
+    background-position: 44% center;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 84%, transparent 100%);
+            mask-image: linear-gradient(180deg, #000 0%, #000 84%, transparent 100%);
   }
   .img-note { top: 12px; bottom: auto; }
   .hero-body { padding: 8px var(--gutter) 48px; max-width: none; }
@@ -272,7 +272,7 @@ strong { font-weight: 700; }
 .vision-figure { margin: 0; }
 .vision-figure img { width: 100%; height: clamp(320px, 50vw, 640px); object-fit: cover; object-position: center 40%; }
 .vision-figure figcaption { padding-top: 10px; font-size: .8rem; color: var(--muted); }
-.vision-text { padding-top: clamp(56px, 7vw, 96px); padding-bottom: clamp(80px, 10vw, 128px); }
+.vision-text { padding-top: clamp(80px, 10vw, 128px); padding-bottom: clamp(80px, 10vw, 128px); }
 .ideas-title { font-size: 1.2rem; margin: 0 0 20px; }
 .ideas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 40px; }
 .ideas h4 { padding-top: 14px; border-top: 1px solid var(--rule-strong); }
