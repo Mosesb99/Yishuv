@@ -76,7 +76,7 @@ strong { font-weight: 700; }
 .nav.scrolled { box-shadow: 0 1px 0 var(--rule); }
 .nav-join { display: none; }
 .nav-inner { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 72px; }
-.nav .bsd { position: absolute; top: 1px; right: var(--gutter); margin: 0; font-size: .7rem; line-height: 1; color: var(--ink-2); }
+.nav .bsd { margin: 0 auto 0 4px; padding-top: 4px; font-size: .8rem; line-height: 1; color: var(--muted); }
 .brand { font: 400 1.6rem var(--serif); text-decoration: none; letter-spacing: .01em; }
 .nav-links { display: flex; align-items: center; gap: 32px; font: 600 .8rem var(--sans); letter-spacing: .14em; text-transform: uppercase; }
 .nav-links a { text-decoration: none; }
@@ -117,7 +117,7 @@ strong { font-weight: 700; }
 .btn-line:hover { background: var(--ink); color: var(--white); }
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; min-height: 0; }
-  .hero-media { height: 58vh; min-height: 320px; }
+  .hero-media { height: 36vh; min-height: 220px; }
   .hero-img {
     background-position: 18% center;
     -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 68%, rgba(0, 0, 0, .5) 86%, transparent 100%);
@@ -296,10 +296,10 @@ strong { font-weight: 700; }
 .garin-head h3 { margin: 0; font-size: 1.35rem; }
 .garin-head p { margin: 0; color: var(--ink-2); }
 .garin-head strong { font: 400 2.4rem var(--serif); color: var(--ink); margin-right: 6px; }
-.garin-grid { display: grid; grid-template-columns: repeat(25, 1fr); gap: 5px; }
+.garin-grid { display: grid; grid-template-columns: repeat(30, 1fr); gap: 5px; }
 .garin-grid i { position: relative; aspect-ratio: 1; border: 1px solid #b9bec2; background: transparent; }
 .garin-grid i.on { background: var(--ink); border-color: var(--ink); }
-.garin-grid i.goal::after { content: ""; position: absolute; top: -4px; bottom: -4px; right: -4px; width: 2px; background: var(--brass); }
+.garin-grid i.goal::after { content: ""; position: absolute; top: -5px; bottom: -5px; right: -4px; width: 3px; background: var(--brass); }
 .garin-legend { margin: 12px 0 0; font-size: .85rem; color: var(--muted); }
 @media (max-width: 600px) { .garin-grid { grid-template-columns: repeat(15, 1fr); gap: 3px; } }
 @media (max-width: 760px) { .who { grid-template-columns: 1fr; } }
