@@ -2,6 +2,7 @@
 // 1. Adds the sign-up to the "Website sign-ups" tab of the Google Sheet
 //    (the sheet's Apps Script also emails a notification).
 // 2. Adds the person to the MailerLite mailing list, when configured.
+// 3. Emails the sign-up to the team (service binding NOTIFY → the yishuv-notify Worker).
 //
 // Settings (Cloudflare → Workers & Pages → the project → Settings → Variables and Secrets):
 //   SHEET_WEBHOOK_URL     the Apps Script web app /exec URL
@@ -88,6 +89,22 @@ async function addToMailingList(env, d) {
   if (!res.ok) console.error("mailerlite", res.status, await res.text());
 }
 
+// Emails the sign-up to the team through the yishuv-notify Worker (notify-worker/), reached by the
+// NOTIFY service binding. Works whether or not the Google Sheet is reachable.
+async function notifyTeam(env, record) {
+  if (!env.NOTIFY) return;
+  try {
+    const res = await env.NOTIFY.fetch("https://notify/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(record)
+    });
+    if (!res.ok) console.error("notify", res.status, await res.text());
+  } catch (err) {
+    console.error("notify", err);
+  }
+}
+
 export async function onRequestPost({ request, env, waitUntil }) {
   const reply = (body, status = 200) => Response.json(body, { status });
 
@@ -142,5 +159,6 @@ export async function onRequestPost({ request, env, waitUntil }) {
 
   if (sheetError && !stored) return reply({ ok: false, error: "could not save" }, 502);
   waitUntil(addToMailingList(env, d));
+  waitUntil(notifyTeam(env, { received, savedToSheet: !sheetError, fields: sheetFields(d) }));
   return reply({ ok: true });
 }
